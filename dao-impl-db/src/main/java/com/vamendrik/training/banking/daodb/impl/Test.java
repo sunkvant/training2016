@@ -1,5 +1,7 @@
 package com.vamendrik.training.banking.daodb.impl;
 
+import java.security.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +26,11 @@ public class Test {
 			System.out.println(list.get(i).getFirstName()+" "+list.get(i).getLastName()+" "+list.get(i).getMiddleName()+" "+list.get(i).getNumberOfPassport()+" "+list.get(i).getCityId());
 
 		Client client=bn.getById(2l);
+		System.out.println(client.getFirstName()+" "+client.getLastName()+" "+client.getMiddleName()+" "+client.getNumberOfPassport()+" "+client.getDateBorn().toString()+" "+client.getCityId());
 		
-		System.out.println(client.getFirstName()+" "+client.getLastName()+" "+client.getMiddleName()+" "+client.getNumberOfPassport()+" "+client.getCityId());
+		//client.setFirstName("Степан");
 		
+		//bn.update(client);
 		
 }
 	
