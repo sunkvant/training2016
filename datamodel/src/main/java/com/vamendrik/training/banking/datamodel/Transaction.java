@@ -1,7 +1,7 @@
 package com.vamendrik.training.banking.datamodel;
 
 import java.math.BigInteger;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class Transaction extends AbstractModel {
 	

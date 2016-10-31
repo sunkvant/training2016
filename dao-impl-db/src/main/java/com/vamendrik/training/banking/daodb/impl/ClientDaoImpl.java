@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -39,7 +40,7 @@ public class ClientDaoImpl implements AbstractDAO<Client,Long> {
 	}
 
 	@Override
-	public void deleteById(Client entity) {
+	public void delete(Client entity) {
 		jdbcTemplate.update("delete from client where id=?",entity.getId());
 	}
 

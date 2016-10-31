@@ -7,7 +7,7 @@ public interface AbstractDAO <E, T> {
 	public List<E> getAll();
 	public E getById(T id);
 	public void update(E entity);
-	public void deleteById(E entity);
+	public void delete(E entity);
 	public void insert(E entity);
 	
 }

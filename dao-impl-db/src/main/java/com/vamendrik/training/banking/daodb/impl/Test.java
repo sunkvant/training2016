@@ -4,23 +4,35 @@ import java.security.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.vamendrik.training.banking.daodb.AbstractDAO;
 import com.vamendrik.training.banking.datamodel.Client;
 
 
 public class Test {
+	
 
 	public static void main(String[] args) {
 		
 		ApplicationContext ctx= new FileSystemXmlApplicationContext("src/main/resources/context.xml");
 		
+		
 		ClientDaoImpl bn = (ClientDaoImpl) ctx.getBean("clientDaoImpl");
+
+		
+		for(int i=0; i<ctx.getBeanDefinitionCount(); i++) 
+			System.out.println(ctx.getBeanDefinitionNames()[i]);
+		
 		
 		List<Client> list=bn.getAll();
+		
+		 
 		
 		for(int i=0; i<list.size(); i++) 
 			System.out.println(list.get(i).getFirstName()+" "+list.get(i).getLastName()+" "+list.get(i).getMiddleName()+" "+list.get(i).getNumberOfPassport()+" "+list.get(i).getCityId());

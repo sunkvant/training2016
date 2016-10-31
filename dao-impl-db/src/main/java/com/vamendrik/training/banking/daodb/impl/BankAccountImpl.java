@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.vamendrik.training.banking.daodb.AbstractDAO;
 import com.vamendrik.training.banking.daodb.mapper.BankAccountMapper;
@@ -12,6 +13,7 @@ import com.vamendrik.training.banking.daodb.mapper.CountryMapper;
 import com.vamendrik.training.banking.datamodel.BankAccount;
 import com.vamendrik.training.banking.datamodel.Country;
 
+@Repository
 public class BankAccountImpl implements AbstractDAO<BankAccount,Long> {
 
 	@Inject
@@ -36,7 +38,7 @@ public class BankAccountImpl implements AbstractDAO<BankAccount,Long> {
 	}
 
 	@Override
-	public void deleteById(BankAccount entity) {
+	public void delete(BankAccount entity) {
 		this.jdbcTemplate.update("delete from bank_account where id=?",entity.getId());
 		
 	}

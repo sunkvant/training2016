@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.vamendrik.training.banking.daodb.AbstractDAO;
 import com.vamendrik.training.banking.daodb.mapper.CityMapper;
@@ -12,6 +13,7 @@ import com.vamendrik.training.banking.daodb.mapper.ClientMapper;
 import com.vamendrik.training.banking.datamodel.City;
 import com.vamendrik.training.banking.datamodel.Client;
 
+@Repository
 public class CityDaoImpl implements AbstractDAO<City,Long> {
 
 	@Inject
@@ -36,7 +38,7 @@ public class CityDaoImpl implements AbstractDAO<City,Long> {
 	}
 
 	@Override
-	public void deleteById(City entity) {
+	public void delete(City entity) {
 		jdbcTemplate.update("delete from city where id=?",entity.getId());
 		
 	}

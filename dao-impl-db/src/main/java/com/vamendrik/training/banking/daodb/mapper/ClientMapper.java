@@ -10,7 +10,7 @@ import com.vamendrik.training.banking.datamodel.Client;
 public class ClientMapper implements RowMapper<Client> {
 
 	@Override
-	public Client mapRow(ResultSet rs, int arg1) throws SQLException {
+	public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Client client = new Client();
 		client.setId(rs.getLong("id"));
 		client.setFirstName(rs.getString("first_name"));
