@@ -13,7 +13,7 @@ public class City extends AbstractModel {
 		this.cityName = cityName;
 	}
 	
-	public Long getCoutryId() {
+	public Long getCountryId() {
 		return coutryId;
 	}
 	

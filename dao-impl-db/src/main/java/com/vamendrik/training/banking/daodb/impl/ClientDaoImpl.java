@@ -36,7 +36,6 @@ public class ClientDaoImpl implements AbstractDAO<Client,Long> {
 	public void update(Client entity) {
 		jdbcTemplate.update("update client set first_name=?,last_name=?,middle_name=?,number_of_passport=?,date_born=?,city_id=? where id=?",
 				entity.getFirstName(),entity.getLastName(),entity.getMiddleName(),entity.getNumberOfPassport(),entity.getDateBorn(),entity.getCityId(),entity.getId());
-		
 	}
 
 	@Override
