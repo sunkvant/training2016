@@ -16,6 +16,11 @@
 			<artifactId>dao-impl-db</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>com.vamendrik.training.banking</groupId>
+			<artifactId>datamodel</artifactId>
+		</dependency>
+		
 		
 	</dependencies>
 </project>

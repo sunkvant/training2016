@@ -1,22 +1,18 @@
 package com.vamendrik.training.banking.daodb.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.vamendrik.training.banking.daodb.AbstractDAO;
+import com.vamendrik.training.banking.daodb.ClientDao;
 import com.vamendrik.training.banking.daodb.mapper.ClientMapper;
 import com.vamendrik.training.banking.datamodel.Client;
 
 @Repository
-public class ClientDaoImpl implements AbstractDAO<Client,Long> {
+public class ClientDaoImpl implements ClientDao {
 	
 	@Inject
 	private JdbcTemplate jdbcTemplate;

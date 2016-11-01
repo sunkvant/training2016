@@ -2,7 +2,7 @@ package com.vamendrik.training.banking.daodb;
 
 import java.util.List;
 
-public interface AbstractDAO <E, T> {
+public interface AbstractDao <E, T> {
 	
 	public List<E> getAll();
 	public E getById(T id);

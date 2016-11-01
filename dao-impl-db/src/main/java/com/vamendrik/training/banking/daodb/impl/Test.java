@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.vamendrik.training.banking.daodb.AbstractDAO;
+import com.vamendrik.training.banking.daodb.AbstractDao;
 import com.vamendrik.training.banking.datamodel.Client;
 
 

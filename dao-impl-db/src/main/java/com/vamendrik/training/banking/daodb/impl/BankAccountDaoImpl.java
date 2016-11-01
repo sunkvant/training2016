@@ -7,14 +7,12 @@ import javax.inject.Inject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.vamendrik.training.banking.daodb.AbstractDAO;
+import com.vamendrik.training.banking.daodb.BankAccountDao;
 import com.vamendrik.training.banking.daodb.mapper.BankAccountMapper;
-import com.vamendrik.training.banking.daodb.mapper.CountryMapper;
 import com.vamendrik.training.banking.datamodel.BankAccount;
-import com.vamendrik.training.banking.datamodel.Country;
 
 @Repository
-public class BankAccountImpl implements AbstractDAO<BankAccount,Long> {
+public class BankAccountDaoImpl implements BankAccountDao {
 
 	@Inject
 	private JdbcTemplate jdbcTemplate;

@@ -7,14 +7,12 @@ import javax.inject.Inject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.vamendrik.training.banking.daodb.AbstractDAO;
-import com.vamendrik.training.banking.daodb.mapper.CityMapper;
+import com.vamendrik.training.banking.daodb.RoleDao;
 import com.vamendrik.training.banking.daodb.mapper.RoleMapper;
-import com.vamendrik.training.banking.datamodel.City;
 import com.vamendrik.training.banking.datamodel.Role;
 
 @Repository
-public class RoleDaoImpl implements AbstractDAO<Role,Long> {
+public class RoleDaoImpl implements RoleDao {
 
 	@Inject
 	private JdbcTemplate jdbcTemplate;

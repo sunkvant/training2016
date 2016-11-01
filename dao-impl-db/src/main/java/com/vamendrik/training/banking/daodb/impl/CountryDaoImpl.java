@@ -7,14 +7,12 @@ import javax.inject.Inject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.vamendrik.training.banking.daodb.AbstractDAO;
-import com.vamendrik.training.banking.daodb.mapper.CityMapper;
+import com.vamendrik.training.banking.daodb.CountryDao;
 import com.vamendrik.training.banking.daodb.mapper.CountryMapper;
-import com.vamendrik.training.banking.datamodel.City;
 import com.vamendrik.training.banking.datamodel.Country;
 
 @Repository
-public class CountryDaoImpl implements AbstractDAO<Country,Long> {
+public class CountryDaoImpl implements CountryDao {
 
 	@Inject
 	private JdbcTemplate jdbcTemplate;

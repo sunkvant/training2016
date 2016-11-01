@@ -7,14 +7,12 @@ import javax.inject.Inject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.vamendrik.training.banking.daodb.AbstractDAO;
-import com.vamendrik.training.banking.daodb.mapper.BankAccountMapper;
+import com.vamendrik.training.banking.daodb.CreditCardDao;
 import com.vamendrik.training.banking.daodb.mapper.CreditCardMapper;
-import com.vamendrik.training.banking.datamodel.BankAccount;
 import com.vamendrik.training.banking.datamodel.CreditCard;
 
 @Repository
-public class CreditCardImpl implements AbstractDAO<CreditCard,Long> {
+public class CreditCardDaoImpl implements CreditCardDao {
 
 	@Inject
 	private JdbcTemplate jdbcTemplate;

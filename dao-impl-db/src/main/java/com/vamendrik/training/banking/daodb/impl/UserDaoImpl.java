@@ -6,13 +6,11 @@ import javax.inject.Inject;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.vamendrik.training.banking.daodb.AbstractDAO;
-import com.vamendrik.training.banking.daodb.mapper.RoleMapper;
+import com.vamendrik.training.banking.daodb.UserDao;
 import com.vamendrik.training.banking.daodb.mapper.UserMapper;
-import com.vamendrik.training.banking.datamodel.Role;
 import com.vamendrik.training.banking.datamodel.User;
 
-public class UserDaoImpl implements AbstractDAO<User,Long> {
+public class UserDaoImpl implements UserDao {
 
 	@Inject
 	private JdbcTemplate jdbcTemplate;
