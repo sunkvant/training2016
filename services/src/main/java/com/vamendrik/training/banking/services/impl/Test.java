@@ -1,31 +1,20 @@
 package com.vamendrik.training.banking.services.impl;
 
-import javax.inject.Inject;
+import java.util.Date;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
 
 public class Test {
 	
-	
-	UserServiceImpl ser=new UserServiceImpl();
-
 	public static void main(String[] args) {
 		
-		tes t=new tes();
-		
-		t.ex();
-		
-
-	}
-
-}
-
-class tes {
-	
-	@Inject
-	UserServiceImpl ser;
-	
-	public void ex() {
-		
-		ser.getAll();
+		ApplicationContext ctx= new FileSystemXmlApplicationContext("src/main/resources/context.xml");
+		for(int i=0; i<ctx.getBeanDefinitionCount(); i++) 
+			System.out.println(ctx.getBeanDefinitionNames()[i]);
+		UserServiceImpl imp=(UserServiceImpl) ctx.getBean("userServiceImpl");
+		imp.add("Павел", "Бугуртов", "Рудольфович", "KH45643", new Date(), 2l, "Petuh", "RTyu6734", 1l);
 		
 		
 	}

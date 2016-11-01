@@ -1,7 +1,10 @@
 package com.vamendrik.training.banking.daodb;
 
-import com.vamendrik.training.banking.datamodel.Client;
+import java.util.List;
 
-public interface ClientDao extends AbstractDao<Client, Long> {
-	
+import com.vamendrik.training.banking.datamodel.Client;
+import com.vamendrik.training.banking.datamodel.Country;
+
+public interface ClientDao extends AbstractDao<Client,Long>  {
+
 }

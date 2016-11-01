@@ -5,11 +5,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.vamendrik.training.banking.daodb.UserDao;
 import com.vamendrik.training.banking.daodb.mapper.UserMapper;
 import com.vamendrik.training.banking.datamodel.User;
 
+@Repository
 public class UserDaoImpl implements UserDao {
 
 	@Inject

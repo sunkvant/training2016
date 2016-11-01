@@ -3,13 +3,18 @@ package com.vamendrik.training.banking.services.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.vamendrik.training.banking.daodb.AbstractDao;
 import com.vamendrik.training.banking.daodb.ClientDao;
 import com.vamendrik.training.banking.daodb.UserDao;
+import com.vamendrik.training.banking.daodb.impl.ClientDaoImpl;
+import com.vamendrik.training.banking.daodb.impl.UserDaoImpl;
 import com.vamendrik.training.banking.datamodel.Client;
 import com.vamendrik.training.banking.datamodel.User;
 
@@ -32,7 +37,7 @@ public class UserServiceImpl {
 		client.setMiddleName(middleName);
 		client.setNumberOfPassport(numberOfPassport);
 		client.setDateBorn(dateBorn);
-		client.setId(cityId);
+		client.setCityId(cityId);
 		
 		clientDao.insert(client);
 		
@@ -52,9 +57,11 @@ public class UserServiceImpl {
 		
 	}
 	
-	public add() {
+	public void add(String firstName,String lastName,String middleName,
+			String numberOfPassport,Date dateBorn,Long cityId,String login,String password,Long roleId) {
 		
-		
+		//addClient(firstName,lastName,middleName,numberOfPassport,dateBorn,cityId);
+		addUser(login,password,roleId);
 		
 		
 	}
