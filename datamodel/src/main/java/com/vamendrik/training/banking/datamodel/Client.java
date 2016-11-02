@@ -10,6 +10,7 @@ public class Client extends AbstractModel {
 	private String numberOfPassport;
 	private Date dateBorn;
 	private Long cityId;
+	private Long bankAccountId;
 	
 	public String getFirstName() {
 		return firstName;
@@ -57,6 +58,14 @@ public class Client extends AbstractModel {
 	
 	public void setCityId(Long cityId) {
 		this.cityId = cityId;
+	}
+
+	public Long getBankAccountId() {
+		return bankAccountId;
+	}
+
+	public void setBankAccountId(Long bankAccountId) {
+		this.bankAccountId = bankAccountId;
 	}
 	
 	

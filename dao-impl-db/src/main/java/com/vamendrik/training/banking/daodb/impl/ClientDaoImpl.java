@@ -42,7 +42,7 @@ public class ClientDaoImpl implements ClientDao {
 
 	@Override
 	public void insert(Client entity) {
-		jdbcTemplate.update("insert into client (first_name,last_name,middle_name,number_of_passport,date_born,city_id) values (?,?,?,?,?,?)",entity.getFirstName(),entity.getLastName(),entity.getMiddleName(),entity.getNumberOfPassport(),entity.getDateBorn(),entity.getCityId());
+		jdbcTemplate.update("insert into client (first_name,last_name,middle_name,number_of_passport,date_born,city_id,bank_account_id) values (?,?,?,?,?,?,?)",entity.getFirstName(),entity.getLastName(),entity.getMiddleName(),entity.getNumberOfPassport(),entity.getDateBorn(),entity.getCityId(),entity.getBankAccountId());
 	}
 
 }

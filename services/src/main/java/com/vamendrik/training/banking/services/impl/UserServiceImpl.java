@@ -4,20 +4,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.vamendrik.training.banking.daodb.AbstractDao;
 import com.vamendrik.training.banking.daodb.ClientDao;
-import com.vamendrik.training.banking.daodb.UserDao;
-import com.vamendrik.training.banking.daodb.impl.ClientDaoImpl;
-import com.vamendrik.training.banking.daodb.impl.UserDaoImpl;
+import com.vamendrik.training.banking.daodb.AutorizationDao;
 import com.vamendrik.training.banking.datamodel.Client;
-import com.vamendrik.training.banking.datamodel.User;
+import com.vamendrik.training.banking.datamodel.Autorization;
 
 @Service
 public class UserServiceImpl {
@@ -26,7 +20,7 @@ public class UserServiceImpl {
 	private ClientDao clientDao;
 	
 	@Inject
-	private UserDao userDao;
+	private AutorizationDao autorizationDao;
 	
 	private String generatePassword() {
 		
@@ -49,10 +43,29 @@ public class UserServiceImpl {
 		
 	}
 	
-	private void addClient(String firstName,String lastName,String middleName,
-			String numberOfPassport,Date dateBorn,Long cityId) {
+	public List<Client> getAllClients() {
+		
+		
+		return clientDao.getAll();
+		
+		
+	}
+	
+	
+	public List<Autorization> getAllClientsAutorizationInfo() {
+		
+		
+		return autorizationDao.getAll();
+		
+		
+	}
+	
+	
+	public void addUser(String firstName,String lastName,String middleName,
+			String numberOfPassport,Date dateBorn,Long cityId,Long bankAccountId,String login,Long roleId) {
 		
 		Client client=new Client();
+		Autorization autorization=new Autorization();
 		
 		client.setFirstName(firstName);
 		client.setLastName(lastName);
@@ -60,32 +73,15 @@ public class UserServiceImpl {
 		client.setNumberOfPassport(numberOfPassport);
 		client.setDateBorn(dateBorn);
 		client.setCityId(cityId);
+		client.setBankAccountId(bankAccountId);
+		
+		autorization.setLogin(login);
+		autorization.setPassword(generatePassword());
+		autorization.setRoleId(roleId);
 		
 		clientDao.insert(client);
+		autorizationDao.insert(autorization);
 		
-		
-		
-	}
-	
-	private void addUser(String login,String password,Long roleId) {
-		
-		User user=new User();
-		user.setLogin(login);
-		user.setPassword(password);
-		user.setRoleId(roleId);
-		
-		userDao.insert(user);
-		
-		
-	}
-	
-	public void add(String firstName,String lastName,String middleName,
-			String numberOfPassport,Date dateBorn,Long cityId,String login,String password,Long roleId) {
-		
-		//addClient(firstName,lastName,middleName,numberOfPassport,dateBorn,cityId);
-		//addUser(login,password,roleId);
-		for(int i=0; i<10; i++)
-			System.out.println(generatePassword());
 		
 	}
 	

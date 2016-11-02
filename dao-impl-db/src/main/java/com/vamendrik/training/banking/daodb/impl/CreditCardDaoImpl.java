@@ -31,7 +31,7 @@ public class CreditCardDaoImpl implements CreditCardDao {
 
 	@Override
 	public void update(CreditCard entity) {
-		this.jdbcTemplate.update("update credit_card set bank_account_id=?,client_id=?,number_card=?,validity=?,status=? where id=?",entity.getBankAccountId(),entity.getClientId(),entity.getNumberCard(),entity.getValidity(),entity.isStatus(),entity.getId());
+		this.jdbcTemplate.update("update credit_card set bank_account_id=?,number_card=?,validity=?,status=? where id=?",entity.getBankAccountId(),entity.getNumberCard(),entity.getValidity(),entity.isStatus(),entity.getId());
 		
 	}
 
@@ -43,7 +43,7 @@ public class CreditCardDaoImpl implements CreditCardDao {
 
 	@Override
 	public void insert(CreditCard entity) {
-		jdbcTemplate.update("insert into credit_card (bank_account_id,client_id,number_card,validity,status) values (?,?,?,?,?)",entity.getBankAccountId(),entity.getClientId(),entity.getNumberCard(),entity.getValidity(),entity.isStatus());
+		jdbcTemplate.update("insert into credit_card (bank_account_id,number_card,validity,status) values (?,?,?,?,?)",entity.getBankAccountId(),entity.getNumberCard(),entity.getValidity(),entity.isStatus());
 		
 	}
 	

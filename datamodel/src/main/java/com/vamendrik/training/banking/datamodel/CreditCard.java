@@ -8,7 +8,7 @@ public class CreditCard extends AbstractModel {
 	private Date validity;
 	private boolean status;
 	private Long bankAccountId;
-	private Long clientId;
+	
 	public String getNumberCard() {
 		return numberCard;
 	}
@@ -38,14 +38,6 @@ public class CreditCard extends AbstractModel {
 	
 	public void setBankAccountId(Long bankAccountId) {
 		this.bankAccountId = bankAccountId;
-	}
-	
-	public Long getClientId() {
-		return clientId;
-	}
-	
-	public void setClientId(Long clientId) {
-		this.clientId = clientId;
 	}
 
 }

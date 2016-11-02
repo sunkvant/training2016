@@ -1,6 +1,6 @@
 package com.vamendrik.training.banking.datamodel;
 
-public class User extends AbstractModel {
+public class Autorization extends AbstractModel {
 	
 	private String login;
 	private String password;
