@@ -2,6 +2,7 @@ package com.vamendrik.training.banking.services.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -26,6 +27,27 @@ public class UserServiceImpl {
 	
 	@Inject
 	private UserDao userDao;
+	
+	private String generatePassword() {
+		
+		String s="abcdefghijklmnopqrstuvwxyz0123456789";
+		
+		StringBuilder stringBuilder=new StringBuilder();
+		
+		Random rnd=new Random();
+		
+		for(int i=0; i<10; i++) {
+			
+			char c=s.charAt(rnd.nextInt(s.length()-1));
+			if (rnd.nextInt(10)>5) 
+				c=Character.toUpperCase(c);
+			stringBuilder.append(c);
+		
+		}
+		
+		return stringBuilder.toString();
+		
+	}
 	
 	private void addClient(String firstName,String lastName,String middleName,
 			String numberOfPassport,Date dateBorn,Long cityId) {
@@ -61,8 +83,9 @@ public class UserServiceImpl {
 			String numberOfPassport,Date dateBorn,Long cityId,String login,String password,Long roleId) {
 		
 		//addClient(firstName,lastName,middleName,numberOfPassport,dateBorn,cityId);
-		addUser(login,password,roleId);
-		
+		//addUser(login,password,roleId);
+		for(int i=0; i<10; i++)
+			System.out.println(generatePassword());
 		
 	}
 	
