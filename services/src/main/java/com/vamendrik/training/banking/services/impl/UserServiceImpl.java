@@ -52,7 +52,7 @@ public class UserServiceImpl {
 	}
 	
 	
-	public List<Autorization> getAllClientsAutorizationInfo() {
+	public List<Autorization> getAllClientsAutorization() {
 		
 		
 		return autorizationDao.getAll();
@@ -61,7 +61,7 @@ public class UserServiceImpl {
 	}
 	
 	
-	public void addUser(String firstName,String lastName,String middleName,
+	public void add(String firstName,String lastName,String middleName,
 			String numberOfPassport,Date dateBorn,Long cityId,Long bankAccountId,String login,Long roleId) {
 		
 		Client client=new Client();
@@ -73,7 +73,6 @@ public class UserServiceImpl {
 		client.setNumberOfPassport(numberOfPassport);
 		client.setDateBorn(dateBorn);
 		client.setCityId(cityId);
-		client.setBankAccountId(bankAccountId);
 		
 		autorization.setLogin(login);
 		autorization.setPassword(generatePassword());

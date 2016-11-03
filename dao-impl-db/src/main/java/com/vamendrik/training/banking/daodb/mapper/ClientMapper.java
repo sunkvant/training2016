@@ -19,7 +19,6 @@ public class ClientMapper implements RowMapper<Client> {
 		client.setNumberOfPassport(rs.getString("number_of_passport"));
 		client.setDateBorn(rs.getDate("date_born"));
 		client.setCityId(rs.getLong("city_id"));
-		client.setBankAccountId(rs.getLong("bank_account_id"));
 		return client;
 	}
 

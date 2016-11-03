@@ -59,15 +59,4 @@ public class Client extends AbstractModel {
 	public void setCityId(Long cityId) {
 		this.cityId = cityId;
 	}
-
-	public Long getBankAccountId() {
-		return bankAccountId;
-	}
-
-	public void setBankAccountId(Long bankAccountId) {
-		this.bankAccountId = bankAccountId;
-	}
-	
-	
-
 }
