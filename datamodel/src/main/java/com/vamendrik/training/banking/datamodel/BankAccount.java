@@ -2,16 +2,16 @@ package com.vamendrik.training.banking.datamodel;
 
 public class BankAccount extends AbstractModel {
 	
-	private String numberAccount;
+	private Long numberAccount;
 	private double sum;
 	private boolean status;
 	private Long clientId;
 	
-	public String getNumberAccount() {
+	public Long getNumberAccount() {
 		return numberAccount;
 	}
 	
-	public void setNumberAccount(String numberAccount) {
+	public void setNumberAccount(Long numberAccount) {
 		this.numberAccount = numberAccount;
 	}
 	

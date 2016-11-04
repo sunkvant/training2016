@@ -8,6 +8,6 @@ public interface AbstractDao <E, T> {
 	public E getById(T id);
 	public void update(E entity);
 	public void delete(E entity);
-	public void insert(E entity);
+	public T insert(E entity);
 	
 }

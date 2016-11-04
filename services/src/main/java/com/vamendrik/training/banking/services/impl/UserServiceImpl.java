@@ -1,6 +1,6 @@
 package com.vamendrik.training.banking.services.impl;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -74,11 +74,12 @@ public class UserServiceImpl {
 		client.setDateBorn(dateBorn);
 		client.setCityId(cityId);
 		
+		autorization.setId(clientDao.insert(client));
 		autorization.setLogin(login);
 		autorization.setPassword(generatePassword());
 		autorization.setRoleId(roleId);
 		
-		clientDao.insert(client);
+		
 		autorizationDao.insert(autorization);
 		
 		

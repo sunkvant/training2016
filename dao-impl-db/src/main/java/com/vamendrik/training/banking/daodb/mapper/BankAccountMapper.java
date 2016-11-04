@@ -13,7 +13,7 @@ public class BankAccountMapper implements RowMapper<BankAccount> {
 	public BankAccount mapRow(ResultSet rs, int rowNum) throws SQLException {
 		BankAccount bankAccount=new BankAccount();
 		bankAccount.setId(rs.getLong("id"));
-		bankAccount.setNumberAccount(rs.getString("number_account"));
+		bankAccount.setNumberAccount(rs.getLong("number_account"));
 		bankAccount.setSum(rs.getDouble("sum"));
 		bankAccount.setStatus(rs.getBoolean("status"));
 		bankAccount.setClientId(rs.getLong("client_id"));
