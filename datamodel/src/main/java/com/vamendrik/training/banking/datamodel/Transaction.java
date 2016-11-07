@@ -9,13 +9,14 @@ public class Transaction extends AbstractModel {
 	private boolean status;
 	private double sum;
 	private Long creditCardId;
+	private Long fromTo;
 	
 	public Timestamp getDateCompletion() {
 		return dateCompletion;
 	}
 	
-	public void setDateCompletion(Timestamp dateCompletion) {
-		this.dateCompletion = dateCompletion;
+	public void setDateCompletion(Timestamp date) {
+		this.dateCompletion = date;
 	}
 	
 	public boolean isStatus() {
@@ -40,6 +41,14 @@ public class Transaction extends AbstractModel {
 	
 	public void setCreditCardId(Long creditCardId) {
 		this.creditCardId = creditCardId;
+	}
+
+	public Long getFromTo() {
+		return fromTo;
+	}
+
+	public void setFromTo(Long fromTo) {
+		this.fromTo = fromTo;
 	}
 
 }

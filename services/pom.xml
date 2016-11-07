@@ -7,53 +7,30 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>services</artifactId>
-	
+
 	<dependencies>
 
-		
+
 		<dependency>
 			<groupId>com.vamendrik.training.banking</groupId>
 			<artifactId>dao-impl-db</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.vamendrik.training.banking</groupId>
 			<artifactId>datamodel</artifactId>
 		</dependency>
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
 		
-			<dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
+			<artifactId>spring-test</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-		</dependency>
-
-
-
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-		</dependency>
-		
-		
-		
 	</dependencies>
 </project>

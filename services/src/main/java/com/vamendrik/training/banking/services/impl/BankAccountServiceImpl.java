@@ -1,22 +1,34 @@
 package com.vamendrik.training.banking.services.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Service;
+
 import com.vamendrik.training.banking.daodb.BankAccountDao;
 import com.vamendrik.training.banking.datamodel.BankAccount;
 
-public class BankAccountImpl {
+@Service
+public class BankAccountServiceImpl {
 	
 	@Inject
 	BankAccountDao bankAccountDao;
 	
 	
-	public Long generateNumberAccount() {
+	private Long generateNumberAccount() {
 		
 		
-		return null;
+		if (bankAccountDao.getLast()==null) {
+			
+			return 368591075l;
+		
+		} else {
+			
+			return bankAccountDao.getLast().getNumberAccount()+new Date().getSeconds()+1;
+			
+		}
 		
 		
 	}
@@ -36,6 +48,8 @@ public class BankAccountImpl {
 		bankAccount.setStatus(status);
 		bankAccount.setClientId(clientId);
 		bankAccount.setNumberAccount(generateNumberAccount());
+		
+		bankAccountDao.insert(bankAccount);
 		
 		
 	}
@@ -65,9 +79,9 @@ public class BankAccountImpl {
 		
 	}
 	
-	public void get(Long id) {
+	public BankAccount get(Long id) {
 		
-		bankAccountDao.getById(id);
+		return bankAccountDao.getById(id);
 		
 	}
 	

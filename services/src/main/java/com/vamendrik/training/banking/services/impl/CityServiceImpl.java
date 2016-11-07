@@ -9,13 +9,15 @@ import org.springframework.stereotype.Service;
 import com.vamendrik.training.banking.daodb.CityDao;
 import com.vamendrik.training.banking.datamodel.City;
 import com.vamendrik.training.banking.datamodel.Country;
+import com.vamendrik.training.banking.services.CityService;
 
 @Service
-public class CityServiceImpl {
+public class CityServiceImpl implements CityService {
 	
 	@Inject
 	CityDao cityDao;
 	
+	@Override
 	public List<City> getAll() {
 		
 		
@@ -23,22 +25,25 @@ public class CityServiceImpl {
 		
 	}
 	
-	public void add(String cityName,Long coutryId) {
+	@Override
+	public Long add(String cityName,Long coutryId) {
 		
 		City city=new City();
 		
 		city.setCityName(cityName);
 		city.setCoutryId(coutryId);
 		
-		cityDao.insert(city);
+		return cityDao.insert(city);
 	}
 	
+	@Override
 	public void delete(City city) {
 		
 		cityDao.delete(city);
 		
 	}
 	
+	@Override
 	public void save(City city) {
 		
 		
@@ -53,6 +58,7 @@ public class CityServiceImpl {
 		}
 	}
 	
+	@Override
 	public City get(Long id) {
 		
 		

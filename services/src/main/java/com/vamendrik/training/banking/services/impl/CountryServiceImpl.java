@@ -8,14 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.vamendrik.training.banking.daodb.CountryDao;
 import com.vamendrik.training.banking.datamodel.Country;
+import com.vamendrik.training.banking.services.CountryService;
 
 
 @Service
-public class CountryServiceImpl {
+public class CountryServiceImpl implements CountryService {
 
 	@Inject
 	CountryDao countryDao;
 	
+	@Override
 	public List<Country> getAll() {
 		
 		
@@ -23,21 +25,24 @@ public class CountryServiceImpl {
 		
 	}
 	
-	public void add(String countryName) {
+	@Override
+	public Long add(String countryName) {
 		
 		Country country=new Country();
 		
 		country.setCountryName(countryName);
 		
-		countryDao.insert(country);
+		return countryDao.insert(country);
 	}
 	
+	@Override
 	public void delete(Country country) {
 		
 		countryDao.delete(country);
 		
 	}
 	
+	@Override
 	public void save(Country country) {
 		
 		
@@ -54,7 +59,7 @@ public class CountryServiceImpl {
 		
 	}
 	
-	
+	@Override
 	public Country get(Long id) {
 		
 		

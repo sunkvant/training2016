@@ -16,6 +16,7 @@ public class TransactionMapper implements RowMapper<Transaction> {
 		transaction.setDateCompletion(rs.getTimestamp("date_completion"));
 		transaction.setStatus(rs.getBoolean("status"));
 		transaction.setSum(rs.getDouble("sum"));
+		transaction.setFromTo(rs.getLong("from_to"));
 		transaction.setCreditCardId(rs.getLong("credit_card_id"));
 		return transaction;
 	}

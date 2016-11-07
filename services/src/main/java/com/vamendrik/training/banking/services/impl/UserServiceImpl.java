@@ -1,6 +1,6 @@
 package com.vamendrik.training.banking.services.impl;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -11,10 +11,11 @@ import org.springframework.stereotype.Service;
 import com.vamendrik.training.banking.daodb.ClientDao;
 import com.vamendrik.training.banking.daodb.AutorizationDao;
 import com.vamendrik.training.banking.datamodel.Client;
+import com.vamendrik.training.banking.services.UserService;
 import com.vamendrik.training.banking.datamodel.Autorization;
 
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 	
 	@Inject
 	private ClientDao clientDao;
@@ -43,6 +44,7 @@ public class UserServiceImpl {
 		
 	}
 	
+	@Override
 	public List<Client> getAllClients() {
 		
 		
@@ -51,7 +53,17 @@ public class UserServiceImpl {
 		
 	}
 	
+	@Override
+	public void delete(Client client) {
+		
+		autorizationDao.delete(autorizationDao.getById(client.getId()));
+		clientDao.delete(client);
+		
+		
+		
+	}
 	
+	@Override
 	public List<Autorization> getAllClientsAutorization() {
 		
 		
@@ -60,9 +72,25 @@ public class UserServiceImpl {
 		
 	}
 	
+	@Override
+	public Client getClient(Long id) {
+		
+		
+		return clientDao.getById(id);
+		
+	}
 	
-	public void add(String firstName,String lastName,String middleName,
-			String numberOfPassport,Date dateBorn,Long cityId,Long bankAccountId,String login,Long roleId) {
+	@Override
+	public Autorization getAutorization(Long id) {
+		
+		
+		return autorizationDao.getById(id);
+		
+	}
+	
+	@Override
+	public Long add(String firstName,String lastName,String middleName,
+			String numberOfPassport,Date dateBorn,Long cityId,String login,Long roleId) {
 		
 		Client client=new Client();
 		Autorization autorization=new Autorization();
@@ -74,13 +102,17 @@ public class UserServiceImpl {
 		client.setDateBorn(dateBorn);
 		client.setCityId(cityId);
 		
-		autorization.setId(clientDao.insert(client));
+		Long key=clientDao.insert(client);
+		
+		autorization.setId(key);
 		autorization.setLogin(login);
 		autorization.setPassword(generatePassword());
 		autorization.setRoleId(roleId);
 		
 		
 		autorizationDao.insert(autorization);
+		
+		return key;
 		
 		
 	}

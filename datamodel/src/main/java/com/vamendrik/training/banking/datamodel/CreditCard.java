@@ -1,18 +1,18 @@
 package com.vamendrik.training.banking.datamodel;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class CreditCard extends AbstractModel {
 	
-	private String numberCard;
+	private Long numberCard;
 	private Date validity;
 	private boolean status;
 	private Long bankAccountId;
 	
-	public String getNumberCard() {
+	public Long getNumberCard() {
 		return numberCard;
 	}
-	public void setNumberCard(String numberCard) {
+	public void setNumberCard(Long numberCard) {
 		this.numberCard = numberCard;
 	}
 	

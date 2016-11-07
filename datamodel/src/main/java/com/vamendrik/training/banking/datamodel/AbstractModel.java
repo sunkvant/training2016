@@ -1,6 +1,6 @@
 package com.vamendrik.training.banking.datamodel;
 
-public class AbstractModel {
+public abstract class AbstractModel {
 	
 	private Long id;
 

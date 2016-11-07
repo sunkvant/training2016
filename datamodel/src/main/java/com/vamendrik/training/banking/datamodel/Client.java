@@ -1,6 +1,6 @@
 package com.vamendrik.training.banking.datamodel;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Client extends AbstractModel {
 	
