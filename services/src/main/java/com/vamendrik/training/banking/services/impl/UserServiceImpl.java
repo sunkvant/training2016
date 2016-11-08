@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vamendrik.training.banking.daodb.ClientDao;
 import com.vamendrik.training.banking.daodb.AutorizationDao;
@@ -89,6 +90,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	@Transactional
 	public Long add(String firstName,String lastName,String middleName,
 			String numberOfPassport,Date dateBorn,Long cityId,String login,Long roleId) {
 		

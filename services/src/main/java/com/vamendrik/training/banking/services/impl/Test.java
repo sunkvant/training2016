@@ -79,7 +79,7 @@ public class Test {
 //		imp5.add(0, true, imp4.getAllClients().get(0).getId());
 //		imp5.add(0, true, imp4.getAllClients().get(1).getId());
 		
-		CreditCardService imp6=(CreditCardService) ctx.getBean("creditCardService");
+		CreditCardServiceImpl imp6=(CreditCardServiceImpl) ctx.getBean("creditCardService");
 		
 //		imp6.add(imp5.getAll().get(0).getId());
 //		imp6.add(imp5.getAll().get(0).getId());

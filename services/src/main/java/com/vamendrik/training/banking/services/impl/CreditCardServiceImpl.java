@@ -11,9 +11,10 @@ import org.springframework.stereotype.Service;
 import com.vamendrik.training.banking.daodb.CreditCardDao;
 import com.vamendrik.training.banking.datamodel.BankAccount;
 import com.vamendrik.training.banking.datamodel.CreditCard;
+import com.vamendrik.training.banking.services.CreditCardService;
 
 @Service
-public class CreditCardService {
+public class CreditCardServiceImpl implements CreditCardService {
 	
 	@Inject
 	private CreditCardDao creditCardDao;
@@ -81,10 +82,11 @@ public class CreditCardService {
 		
 	}
 	
-	public void get(Long id) {
+	public CreditCard get(Long id) {
 		
-		creditCardDao.getById(id);
+		return creditCardDao.getById(id);
 		
 	}
+
 
 }

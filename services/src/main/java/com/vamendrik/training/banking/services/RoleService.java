@@ -4,12 +4,9 @@ import java.util.List;
 
 import com.vamendrik.training.banking.datamodel.Role;
 
-public interface RoleService {
+public interface RoleService extends AbstractService<Role,Long> {
 
-	public List<Role> getAll();
 	public Long add(String roleName);
-	public void delete(Role role);
-	public void save(Role role);
-	public Role get(Long id);
+
 	
 }

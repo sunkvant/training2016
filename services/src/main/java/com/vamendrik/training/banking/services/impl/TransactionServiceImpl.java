@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vamendrik.training.banking.daodb.BankAccountDao;
 import com.vamendrik.training.banking.daodb.TransactionDao;
@@ -22,6 +23,7 @@ public class TransactionServiceImpl {
 	@Inject
 	BankAccountDao bankAccountDao;
 	
+	@Transactional
 	private void createTransaction(CreditCard source,CreditCard destination,double sum) {
 		
 		
@@ -44,6 +46,7 @@ public class TransactionServiceImpl {
 		transactionDao.insert(transaction);
 	}
 	
+	@Transactional
 	public void TransferToBankAccount(CreditCard source,CreditCard destination,double sum) {
 		
 		BankAccount bankAccountSource=bankAccountDao.getById(source.getBankAccountId());

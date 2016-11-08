@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.vamendrik.training.banking.daodb.BankAccountDao;
 import com.vamendrik.training.banking.datamodel.BankAccount;
+import com.vamendrik.training.banking.services.AbstractService;
+import com.vamendrik.training.banking.services.BankAccountService;
 
 @Service
-public class BankAccountServiceImpl {
+public class BankAccountServiceImpl implements BankAccountService {
 	
 	@Inject
 	BankAccountDao bankAccountDao;
@@ -33,6 +35,7 @@ public class BankAccountServiceImpl {
 		
 	}
 	
+	@Override
 	public List<BankAccount> getAll() {
 		
 		return bankAccountDao.getAll();
@@ -40,6 +43,7 @@ public class BankAccountServiceImpl {
 		
 	}
 	
+	@Override
 	public void add(double sum,boolean status,Long clientId) {
 		
 		BankAccount bankAccount=new BankAccount();
@@ -54,6 +58,7 @@ public class BankAccountServiceImpl {
 		
 	}
 	
+	@Override
 	public void delete(BankAccount bankAccount) {
 		
 		
@@ -62,6 +67,7 @@ public class BankAccountServiceImpl {
 	}
 	
 	
+	@Override
 	public void save(BankAccount bankAccount) {
 		
 		if (bankAccountDao.getById(bankAccount.getId())==null) {
@@ -79,6 +85,7 @@ public class BankAccountServiceImpl {
 		
 	}
 	
+	@Override
 	public BankAccount get(Long id) {
 		
 		return bankAccountDao.getById(id);
