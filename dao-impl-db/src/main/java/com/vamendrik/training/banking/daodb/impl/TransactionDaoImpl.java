@@ -3,6 +3,7 @@ package com.vamendrik.training.banking.daodb.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,20 +15,16 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.vamendrik.training.banking.daodb.TransactionDao;
+import com.vamendrik.training.banking.daoapi.ITransactionDao;
 import com.vamendrik.training.banking.daodb.mapper.TransactionMapper;
+import com.vamendrik.training.banking.datamodel.Role;
 import com.vamendrik.training.banking.datamodel.Transaction;
 
 @Repository
-public class TransactionDaoImpl implements TransactionDao {
+public class TransactionDaoImpl implements ITransactionDao {
 
 	@Inject
 	private JdbcTemplate jdbcTemplate;
-
-	@Override
-	public Long getCount() {
-		return this.jdbcTemplate.queryForObject("select count(*) from transaction", Long.class);
-	}
 
 	@Override
 	public List<Transaction> getAll() {
@@ -37,7 +34,7 @@ public class TransactionDaoImpl implements TransactionDao {
 			return transactions;
 		} catch (EmptyResultDataAccessException e) {
 
-			return null;
+			return new ArrayList<Transaction>(0);
 
 		}
 	}
@@ -73,7 +70,7 @@ public class TransactionDaoImpl implements TransactionDao {
 	@Override
 	public Long insert(final Transaction entity) {
 
-		final String INSERT_SQL = "insert into transaction (date_completion,status,sum,from_to,credit_card_id) values(?,?,?,?,?)";
+		final String INSERT_SQL = "insert into transaction (date_completion,status,sum,from_to,credit_card_id,is_delete) values(?,?,?,?,?,?)";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -87,12 +84,55 @@ public class TransactionDaoImpl implements TransactionDao {
 				ps.setDouble(3, entity.getSum());
 				ps.setLong(4, entity.getFromTo());
 				ps.setLong(5, entity.getCreditCardId());
+				ps.setBoolean(6, false);
 				return ps;
 			}
 
 		}, keyHolder);
 
 		return keyHolder.getKey().longValue();
+	}
+
+	@Override
+	public List<Transaction> getAllByCreditCardId(Long creditCardId) {
+		try {
+			List<Transaction> transactions = this.jdbcTemplate.query(
+					"SELECT public.transaction.* FROM public.transaction  join public.credit_card on public.transaction.credit_card_id=public.credit_card.id where public.credit_card.id=?",
+					new Object[] { creditCardId }, new TransactionMapper());
+			return transactions;
+		} catch (EmptyResultDataAccessException e) {
+
+			return new ArrayList<Transaction>(0);
+
+		}
+	}
+
+	@Override
+	public List<Transaction> getAllByBankAccountId(Long bankAccountId) {
+		try {
+			List<Transaction> transactions = this.jdbcTemplate.query(
+					"SELECT public.transaction.* FROM public.transaction join public.credit_card on public.transaction.credit_card_id=public.credit_card.id join public.bank_account on public.credit_card.bank_account_id=public.bank_account.id where public.bank_account.id=?",
+					new Object[] { bankAccountId }, new TransactionMapper());
+			return transactions;
+		} catch (EmptyResultDataAccessException e) {
+
+			return new ArrayList<Transaction>(0);
+
+		}
+	}
+
+	@Override
+	public List<Transaction> getAllByUserId(Long userId) {
+		try {
+			List<Transaction> transactions = this.jdbcTemplate.query(
+					"SELECT public.transaction.* FROM public.transaction join public.credit_card on public.transaction.credit_card_id=public.credit_card.id join public.bank_account on public.credit_card.bank_account_id=public.bank_account.id join public.\"user\" on public.bank_account.user_id=public.\"user\".id where public.\"user\".id=?",
+					new Object[] { userId }, new TransactionMapper());
+			return transactions;
+		} catch (EmptyResultDataAccessException e) {
+
+			return new ArrayList<Transaction>(0);
+
+		}
 	}
 
 }

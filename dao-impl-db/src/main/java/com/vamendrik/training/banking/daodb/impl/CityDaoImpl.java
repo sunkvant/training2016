@@ -3,6 +3,7 @@ package com.vamendrik.training.banking.daodb.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,20 +15,15 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.vamendrik.training.banking.daodb.CityDao;
+import com.vamendrik.training.banking.daoapi.ICityDao;
 import com.vamendrik.training.banking.daodb.mapper.CityMapper;
 import com.vamendrik.training.banking.datamodel.City;
 
 @Repository
-public class CityDaoImpl implements CityDao {
+public class CityDaoImpl implements ICityDao {
 
 	@Inject
 	private JdbcTemplate jdbcTemplate;
-
-	@Override
-	public Long getCount() {
-		return this.jdbcTemplate.queryForObject("select count(*) from city", Long.class);
-	}
 
 	@Override
 	public List<City> getAll() {
@@ -36,7 +32,7 @@ public class CityDaoImpl implements CityDao {
 			return cities;
 		} catch (EmptyResultDataAccessException e) {
 
-			return null;
+			return new ArrayList<City>(0);
 
 		}
 	}
@@ -56,21 +52,21 @@ public class CityDaoImpl implements CityDao {
 
 	@Override
 	public void update(City entity) {
-		this.jdbcTemplate.update("update city set city_name=?,country_id=? where id=?", entity.getCityName(),
-				entity.getCountryId(), entity.getId());
+		this.jdbcTemplate.update("update city set city_name=?,country_id=?,is_delete=? where id=?",
+				entity.getCityName(), entity.getCountryId(), entity.isDelete(), entity.getId());
 
 	}
 
 	@Override
 	public void delete(City entity) {
-		jdbcTemplate.update("delete from city where id=?", entity.getId());
+		jdbcTemplate.update("update city set is_delete=true where id=?", entity.getId());
 
 	}
 
 	@Override
 	public Long insert(final City entity) {
 
-		final String INSERT_SQL = "insert into city (city_name,country_id) values (?,?)";
+		final String INSERT_SQL = "insert into city (city_name,country_id,is_delete) values (?,?,?)";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -81,6 +77,7 @@ public class CityDaoImpl implements CityDao {
 				PreparedStatement ps = connection.prepareStatement(INSERT_SQL, new String[] { "id" });
 				ps.setString(1, entity.getCityName());
 				ps.setLong(2, entity.getCountryId());
+				ps.setBoolean(3, false);
 
 				return ps;
 			}
@@ -88,6 +85,20 @@ public class CityDaoImpl implements CityDao {
 		}, keyHolder);
 
 		return keyHolder.getKey().longValue();
+	}
+
+	@Override
+	public List<City> getAllByCountryId(Long countryId) {
+		try {
+			List<City> cities = this.jdbcTemplate.query(
+					"select public.city.* from public.city join public.country on public.city.country_id=public.country.id where public.country.id=?",
+					new CityMapper());
+			return cities;
+		} catch (EmptyResultDataAccessException e) {
+
+			return new ArrayList<City>(0);
+
+		}
 	}
 
 }

@@ -6,16 +6,15 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.vamendrik.training.banking.daodb.CityDao;
+import com.vamendrik.training.banking.daoapi.ICityDao;
 import com.vamendrik.training.banking.datamodel.City;
-import com.vamendrik.training.banking.datamodel.Country;
 import com.vamendrik.training.banking.services.CityService;
 
 @Service
 public class CityServiceImpl implements CityService {
 	
 	@Inject
-	CityDao cityDao;
+	ICityDao cityDao;
 	
 	@Override
 	public List<City> getAll() {

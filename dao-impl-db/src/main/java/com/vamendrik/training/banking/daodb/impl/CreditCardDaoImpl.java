@@ -1,9 +1,9 @@
 package com.vamendrik.training.banking.daodb.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,20 +15,16 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.vamendrik.training.banking.daodb.CreditCardDao;
+import com.vamendrik.training.banking.daoapi.ICreditCardDao;
 import com.vamendrik.training.banking.daodb.mapper.CreditCardMapper;
+import com.vamendrik.training.banking.datamodel.Country;
 import com.vamendrik.training.banking.datamodel.CreditCard;
 
 @Repository
-public class CreditCardDaoImpl implements CreditCardDao {
+public class CreditCardDaoImpl implements ICreditCardDao {
 
 	@Inject
 	private JdbcTemplate jdbcTemplate;
-
-	@Override
-	public Long getCount() {
-		return this.jdbcTemplate.queryForObject("select count(*) from credit_card", Long.class);
-	}
 
 	@Override
 	public CreditCard getLast() {
@@ -50,7 +46,7 @@ public class CreditCardDaoImpl implements CreditCardDao {
 			return creditCard;
 		} catch (EmptyResultDataAccessException e) {
 
-			return null;
+			return new ArrayList<CreditCard>(0);
 
 		}
 	}
@@ -72,22 +68,22 @@ public class CreditCardDaoImpl implements CreditCardDao {
 	@Override
 	public void update(CreditCard entity) {
 		this.jdbcTemplate.update(
-				"update credit_card set number_card=?,validity=?,status=?,bank_account_id=? where id=?",
+				"update credit_card set number_card=?,validity=?,status=?,bank_account_id=?,is_delete=? where id=?",
 				entity.getNumberCard(), entity.getValidity(), entity.isStatus(), entity.getBankAccountId(),
-				entity.getId());
+				entity.isDelete(), entity.getId());
 
 	}
 
 	@Override
 	public void delete(CreditCard entity) {
-		this.jdbcTemplate.update("delete from credit_card where id=?", entity.getId());
+		this.jdbcTemplate.update("update credit_card set is_delete=true where id=?", entity.getId());
 
 	}
 
 	@Override
 	public Long insert(final CreditCard entity) {
 
-		final String INSERT_SQL = "insert into credit_card (number_card,validity,status,bank_account_id) values (?,?,?,?)";
+		final String INSERT_SQL = "insert into credit_card (number_card,validity,status,bank_account_id,is_delete) values (?,?,?,?,?)";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -100,6 +96,7 @@ public class CreditCardDaoImpl implements CreditCardDao {
 				ps.setDate(2, new java.sql.Date(entity.getValidity().getTime()));
 				ps.setBoolean(3, entity.isStatus());
 				ps.setLong(4, entity.getBankAccountId());
+				ps.setBoolean(5, false);
 
 				return ps;
 			}
@@ -109,4 +106,44 @@ public class CreditCardDaoImpl implements CreditCardDao {
 		return keyHolder.getKey().longValue();
 	}
 
+	@Override
+	public List<CreditCard> getAllByBankAccountId(Long bankAccountId) {
+		try {
+			List<CreditCard> creditCard = this.jdbcTemplate.query(
+					"SELECT public.credit_card.* from public.credit_card join public.bank_account on public.credit_card.bank_account_id=public.bank_account.id where public.bank_account.id=?",
+					new Object[] { bankAccountId }, new CreditCardMapper());
+			return creditCard;
+		} catch (EmptyResultDataAccessException e) {
+
+			return new ArrayList<CreditCard>(0);
+
+		}
+	}
+
+	@Override
+	public CreditCard getByNumberCard(Long numberCard) {
+		try {
+			CreditCard creditCard = this.jdbcTemplate.queryForObject("select * from credit_card where number_card=?",
+					new Object[] { numberCard }, new CreditCardMapper());
+			return creditCard;
+		} catch (EmptyResultDataAccessException e) {
+
+			return null;
+
+		}
+	}
+
+	@Override
+	public List<CreditCard> getAllByUserId(Long userId) {
+		try {
+			List<CreditCard> creditCard = this.jdbcTemplate.query(
+					"select public.credit_card.* from public.credit_card join public.bank_account on public.credit_card.bank_account_id=public.bank_account.id join public.\"user\" on public.bank_account.user_id=public.\"user\".id where public.\"user\".id=?",
+					new Object[] { userId }, new CreditCardMapper());
+			return creditCard;
+		} catch (EmptyResultDataAccessException e) {
+
+			return new ArrayList<CreditCard>(0);
+
+		}
+	}
 }

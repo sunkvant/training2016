@@ -3,6 +3,7 @@ package com.vamendrik.training.banking.daodb.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,20 +15,16 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.vamendrik.training.banking.daodb.RoleDao;
+import com.vamendrik.training.banking.daoapi.IRoleDao;
 import com.vamendrik.training.banking.daodb.mapper.RoleMapper;
+import com.vamendrik.training.banking.datamodel.CreditCard;
 import com.vamendrik.training.banking.datamodel.Role;
 
 @Repository
-public class RoleDaoImpl implements RoleDao {
+public class RoleDaoImpl implements IRoleDao {
 
 	@Inject
 	private JdbcTemplate jdbcTemplate;
-
-	@Override
-	public Long getCount() {
-		return this.jdbcTemplate.queryForObject("select count(*) from role", Long.class);
-	}
 
 	@Override
 	public List<Role> getAll() {
@@ -36,7 +33,7 @@ public class RoleDaoImpl implements RoleDao {
 			return roles;
 		} catch (EmptyResultDataAccessException e) {
 
-			return null;
+			return new ArrayList<Role>(0);
 
 		}
 	}
@@ -56,20 +53,20 @@ public class RoleDaoImpl implements RoleDao {
 
 	@Override
 	public void update(Role entity) {
-		this.jdbcTemplate.update("update role set role_type=? where id=?", entity.getRoleName(), entity.getId());
+		this.jdbcTemplate.update("update role set role_type=?,is_delete=? where id=?", entity.getRoleName(), entity.isDelete(), entity.getId());
 
 	}
 
 	@Override
 	public void delete(Role entity) {
-		this.jdbcTemplate.update("delete from role where id=?", entity.getId());
+		this.jdbcTemplate.update("update role set is_delete=true where id=?", entity.getId());
 
 	}
 
 	@Override
 	public Long insert(final Role entity) {
 
-		final String INSERT_SQL = "insert into role (role_type) values (?)";
+		final String INSERT_SQL = "insert into role (role_type,is_delete) values (?,?)";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -79,13 +76,27 @@ public class RoleDaoImpl implements RoleDao {
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 				PreparedStatement ps = connection.prepareStatement(INSERT_SQL, new String[] { "id" });
 				ps.setString(1, entity.getRoleName());
-
+				ps.setBoolean(2, entity.isDelete());
+				
 				return ps;
 			}
 
 		}, keyHolder);
 
 		return keyHolder.getKey().longValue();
+	}
+
+	@Override
+	public Role getByRoleType(String roleType) {
+		try {
+			Role role = this.jdbcTemplate.queryForObject("select * from role where role_type=?", new Object[] { roleType },
+					new RoleMapper());
+			return role;
+		} catch (EmptyResultDataAccessException e) {
+
+			return null;
+
+		}
 	}
 
 }

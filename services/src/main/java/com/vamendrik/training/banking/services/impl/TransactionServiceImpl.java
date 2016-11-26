@@ -8,8 +8,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vamendrik.training.banking.daodb.BankAccountDao;
-import com.vamendrik.training.banking.daodb.TransactionDao;
+import com.vamendrik.training.banking.daoapi.IBankAccountDao;
+import com.vamendrik.training.banking.daoapi.ITransactionDao;
 import com.vamendrik.training.banking.datamodel.BankAccount;
 import com.vamendrik.training.banking.datamodel.CreditCard;
 import com.vamendrik.training.banking.datamodel.Transaction;
@@ -18,10 +18,10 @@ import com.vamendrik.training.banking.datamodel.Transaction;
 public class TransactionServiceImpl {
 	
 	@Inject
-	TransactionDao transactionDao;
+	ITransactionDao transactionDao;
 	
 	@Inject
-	BankAccountDao bankAccountDao;
+	IBankAccountDao bankAccountDao;
 	
 	@Transactional
 	private void createTransaction(CreditCard source,CreditCard destination,double sum) {

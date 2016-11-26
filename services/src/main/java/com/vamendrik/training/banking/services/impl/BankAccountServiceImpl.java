@@ -7,16 +7,15 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.vamendrik.training.banking.daodb.BankAccountDao;
+import com.vamendrik.training.banking.daoapi.IBankAccountDao;
 import com.vamendrik.training.banking.datamodel.BankAccount;
-import com.vamendrik.training.banking.services.AbstractService;
 import com.vamendrik.training.banking.services.BankAccountService;
 
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
 	
 	@Inject
-	BankAccountDao bankAccountDao;
+	IBankAccountDao bankAccountDao;
 	
 	
 	private Long generateNumberAccount() {

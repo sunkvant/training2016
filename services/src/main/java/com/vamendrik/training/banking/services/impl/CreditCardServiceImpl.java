@@ -8,8 +8,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.vamendrik.training.banking.daodb.CreditCardDao;
-import com.vamendrik.training.banking.datamodel.BankAccount;
+import com.vamendrik.training.banking.daoapi.ICreditCardDao;
 import com.vamendrik.training.banking.datamodel.CreditCard;
 import com.vamendrik.training.banking.services.CreditCardService;
 
@@ -17,7 +16,7 @@ import com.vamendrik.training.banking.services.CreditCardService;
 public class CreditCardServiceImpl implements CreditCardService {
 	
 	@Inject
-	private CreditCardDao creditCardDao;
+	private ICreditCardDao creditCardDao;
 	
 	private Long generateNumberCard() {
 		

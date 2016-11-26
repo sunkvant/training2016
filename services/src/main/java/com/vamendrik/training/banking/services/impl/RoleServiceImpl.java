@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.vamendrik.training.banking.daodb.RoleDao;
+import com.vamendrik.training.banking.daoapi.IRoleDao;
 import com.vamendrik.training.banking.datamodel.Role;
 import com.vamendrik.training.banking.services.RoleService;
 
@@ -14,7 +14,7 @@ import com.vamendrik.training.banking.services.RoleService;
 public class RoleServiceImpl implements RoleService {
 
 	@Inject
-	RoleDao roleDao;
+	IRoleDao roleDao;
 	
 	@Override
 	public List<Role> getAll() {

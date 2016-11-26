@@ -15,6 +15,7 @@ public class CityMapper implements RowMapper<City> {
 		city.setId(rs.getLong("id"));
 		city.setCoutryId(rs.getLong("country_id"));
 		city.setCityName(rs.getString("city_name"));
+		city.setDelete(rs.getBoolean("is_delete"));
 		return city;
 	}
 

@@ -17,6 +17,7 @@ public class CreditCardMapper implements RowMapper<CreditCard> {
 		creditCard.setNumberCard(rs.getLong("number_card"));
 		creditCard.setValidity(rs.getDate("validity"));
 		creditCard.setStatus(rs.getBoolean("status"));
+		creditCard.setDelete(rs.getBoolean("is_delete"));
 		return creditCard;
 	}
 	

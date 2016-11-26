@@ -13,11 +13,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.vamendrik.training.banking.datamodel.Autorization;
 import com.vamendrik.training.banking.datamodel.City;
-import com.vamendrik.training.banking.datamodel.Client;
 import com.vamendrik.training.banking.datamodel.Country;
 import com.vamendrik.training.banking.datamodel.Role;
+import com.vamendrik.training.banking.datamodel.User;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -66,7 +65,6 @@ public class ServiceTest {
 		
 		Assert.assertEquals(clientId, userService.getClient(clientId).getId());
 		
-		Assert.assertEquals(clientId, userService.getAutorization(clientId));
 		
 	}
 	
@@ -80,9 +78,8 @@ public class ServiceTest {
 		
 		List<Role> roles=roleService.getAll();
 		
-		List<Client> clients=userService.getAllClients();
+		List<User> clients=userService.getAllClients();
 		
-		List<Autorization> autorizations=userService.getAllClientsAutorization();
 		
 		Assert.assertNotNull(cities);
 		
@@ -92,7 +89,6 @@ public class ServiceTest {
 		
 		Assert.assertNotNull(clients);
 		
-		Assert.assertNotNull(autorizations);
 	}
 	
 	@After
@@ -100,7 +96,7 @@ public class ServiceTest {
 		
 		City city=new City();
 		Country country=new Country();
-		Client client=new Client();
+		User client=new User();
 		Role role=new Role();
 		
 		city.setId(cityId);

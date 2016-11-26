@@ -14,6 +14,7 @@ public class RoleMapper implements RowMapper<Role>  {
 		Role role=new Role();
 		role.setId(rs.getLong("id"));
 		role.setRoleName(rs.getString("role_type"));
+		role.setDelete(rs.getBoolean("is_delete"));
 		return role;
 	}
 

@@ -1,19 +1,10 @@
 package com.vamendrik.training.banking.services.impl;
 
-import java.util.Date;
-import java.lang.reflect.Method;
 import java.util.Calendar;
-import java.util.List;
-
-import javax.inject.Inject;
+import java.util.Date;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-
-import com.vamendrik.training.banking.daodb.ClientDao;
-import com.vamendrik.training.banking.datamodel.Autorization;
-import com.vamendrik.training.banking.datamodel.City;
-import com.vamendrik.training.banking.datamodel.Client;
 
 
 public class Test {
@@ -55,7 +46,7 @@ public class Test {
 		
 	
 		
-		UserServiceImpl imp4=(UserServiceImpl) ctx.getBean("userServiceImpl");
+		//UserServiceImpl imp4=(UserServiceImpl) ctx.getBean("userServiceImpl");
 		
 		Calendar calendar=Calendar.getInstance();
 		

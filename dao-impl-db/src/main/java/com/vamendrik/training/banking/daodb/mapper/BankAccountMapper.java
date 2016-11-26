@@ -17,6 +17,7 @@ public class BankAccountMapper implements RowMapper<BankAccount> {
 		bankAccount.setSum(rs.getDouble("sum"));
 		bankAccount.setStatus(rs.getBoolean("status"));
 		bankAccount.setClientId(rs.getLong("client_id"));
+		bankAccount.setDelete(rs.getBoolean("is_delete"));
 		return bankAccount;
 	}
 

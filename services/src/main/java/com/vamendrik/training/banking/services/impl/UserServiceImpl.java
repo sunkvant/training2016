@@ -9,20 +9,15 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vamendrik.training.banking.daodb.ClientDao;
-import com.vamendrik.training.banking.daodb.AutorizationDao;
-import com.vamendrik.training.banking.datamodel.Client;
+import com.vamendrik.training.banking.daoapi.IUserDao;
+import com.vamendrik.training.banking.datamodel.User;
 import com.vamendrik.training.banking.services.UserService;
-import com.vamendrik.training.banking.datamodel.Autorization;
 
 @Service
 public class UserServiceImpl implements UserService {
 	
 	@Inject
-	private ClientDao clientDao;
-	
-	@Inject
-	private AutorizationDao autorizationDao;
+	private IUserDao clientDao;
 	
 	private String generatePassword() {
 		
@@ -46,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<Client> getAllClients() {
+	public List<User> getAllClients() {
 		
 		
 		return clientDao.getAll();
@@ -55,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void delete(Client client) {
+	public void delete(User client) {
 		
 		autorizationDao.delete(autorizationDao.getById(client.getId()));
 		clientDao.delete(client);
@@ -74,7 +69,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public Client getClient(Long id) {
+	public User getClient(Long id) {
 		
 		
 		return clientDao.getById(id);
@@ -94,7 +89,7 @@ public class UserServiceImpl implements UserService {
 	public Long add(String firstName,String lastName,String middleName,
 			String numberOfPassport,Date dateBorn,Long cityId,String login,Long roleId) {
 		
-		Client client=new Client();
+		User client=new User();
 		Autorization autorization=new Autorization();
 		
 		client.setFirstName(firstName);

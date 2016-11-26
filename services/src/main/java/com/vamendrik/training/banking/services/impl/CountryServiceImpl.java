@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.vamendrik.training.banking.daodb.CountryDao;
+import com.vamendrik.training.banking.daoapi.ICountryDao;
 import com.vamendrik.training.banking.datamodel.Country;
 import com.vamendrik.training.banking.services.CountryService;
 
@@ -15,7 +15,7 @@ import com.vamendrik.training.banking.services.CountryService;
 public class CountryServiceImpl implements CountryService {
 
 	@Inject
-	CountryDao countryDao;
+	ICountryDao countryDao;
 	
 	@Override
 	public List<Country> getAll() {

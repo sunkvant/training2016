@@ -2,15 +2,17 @@ package com.vamendrik.training.banking.datamodel;
 
 import java.util.Date;
 
-public class Client extends AbstractModel {
+public class User extends AbstractModel {
 	
 	private String firstName;
 	private String lastName;
 	private String middleName;
 	private String numberOfPassport;
+	private String login;
+	private String password;
 	private Date dateBorn;
 	private Long cityId;
-	private Long bankAccountId;
+	private Long roleId;
 	
 	public String getFirstName() {
 		return firstName;
@@ -59,4 +61,29 @@ public class Client extends AbstractModel {
 	public void setCityId(Long cityId) {
 		this.cityId = cityId;
 	}
+	
+	public String getLogin() {
+		return login;
+	}
+	
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public Long getRoleId() {
+		return roleId;
+	}
+	
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+	
 }

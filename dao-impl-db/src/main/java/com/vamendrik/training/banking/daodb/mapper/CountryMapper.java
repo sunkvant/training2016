@@ -14,6 +14,7 @@ public class CountryMapper implements RowMapper<Country> {
 		Country country=new Country();
 		country.setId(rs.getLong("id"));
 		country.setCountryName(rs.getString("country_name"));
+		country.setDelete(rs.getBoolean("is_delete"));
 		return country;
 	}
 

@@ -18,6 +18,7 @@ public class TransactionMapper implements RowMapper<Transaction> {
 		transaction.setSum(rs.getDouble("sum"));
 		transaction.setFromTo(rs.getLong("from_to"));
 		transaction.setCreditCardId(rs.getLong("credit_card_id"));
+		transaction.setDelete(rs.getBoolean("is_delete"));
 		return transaction;
 	}
 

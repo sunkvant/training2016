@@ -6,4 +6,16 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>dao-api</artifactId>
+  
+  
+  	<dependencies>
+	
+		<dependency>
+			<groupId>com.vamendrik.training.banking</groupId>
+			<artifactId>datamodel</artifactId>
+		</dependency>
+
+	</dependencies>
+  
+  
 </project>

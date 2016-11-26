@@ -5,13 +5,13 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.vamendrik.training.banking.datamodel.Client;
+import com.vamendrik.training.banking.datamodel.User;
 
-public class ClientMapper implements RowMapper<Client> {
+public class UserMapper implements RowMapper<User> {
 
 	@Override
-	public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
-		Client client = new Client();
+	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+		User client = new User();
 		client.setId(rs.getLong("id"));
 		client.setFirstName(rs.getString("first_name"));
 		client.setLastName(rs.getString("last_name"));
@@ -19,6 +19,10 @@ public class ClientMapper implements RowMapper<Client> {
 		client.setNumberOfPassport(rs.getString("number_of_passport"));
 		client.setDateBorn(rs.getDate("date_born"));
 		client.setCityId(rs.getLong("city_id"));
+		client.setLogin(rs.getString("login"));
+		client.setPassword("password");
+		client.setRoleId(rs.getLong("role_id"));
+		client.setDelete(rs.getBoolean("is_delete"));
 		return client;
 	}
 
