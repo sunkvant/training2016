@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.vamendrik.training.banking.datamodel.Country;
 
-public interface CountryService extends AbstractService<Country,Long> {
+public interface ICountryService extends IAbstractService<Country,Long> {
 
 	public Long add(String countryName);
 	

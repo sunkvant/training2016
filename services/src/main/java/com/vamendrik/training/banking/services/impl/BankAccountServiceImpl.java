@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.vamendrik.training.banking.daoapi.IBankAccountDao;
 import com.vamendrik.training.banking.datamodel.BankAccount;
-import com.vamendrik.training.banking.services.BankAccountService;
+import com.vamendrik.training.banking.services.IBankAccountService;
 
 @Service
-public class BankAccountServiceImpl implements BankAccountService {
+public class BankAccountServiceImpl implements IBankAccountService {
 	
 	@Inject
 	IBankAccountDao bankAccountDao;

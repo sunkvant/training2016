@@ -18,7 +18,7 @@
 
 	<context:component-scan base-package="com.vamendrik.training.banking.daodb.impl" />
 	<context:component-scan base-package="com.vamendrik.training.banking.services.impl" />
-	
+
 	<context:property-placeholder
 		ignore-unresolvable="true" location="classpath:db.properties" />
 
@@ -38,9 +38,11 @@
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<constructor-arg ref="dataSource" />
-</bean>
+	</bean>
 
-
-
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 
 </beans>

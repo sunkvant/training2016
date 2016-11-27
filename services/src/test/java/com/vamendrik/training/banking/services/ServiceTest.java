@@ -24,16 +24,16 @@ import com.vamendrik.training.banking.datamodel.User;
 public class ServiceTest {
 	
 	@Inject
-	private CityService cityService;
+	private ICityService cityService;
 	
 	@Inject
-	private CountryService countryService;
+	private ICountryService countryService;
 	
 	@Inject
-	private RoleService roleService;
+	private IRoleService roleService;
 	
 	@Inject
-	private UserService userService;
+	private IUserService userService;
 	
 	private Long countryId;
 	private Long cityId;

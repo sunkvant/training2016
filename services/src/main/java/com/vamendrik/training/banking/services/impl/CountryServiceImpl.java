@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.vamendrik.training.banking.daoapi.ICountryDao;
 import com.vamendrik.training.banking.datamodel.Country;
-import com.vamendrik.training.banking.services.CountryService;
+import com.vamendrik.training.banking.services.ICountryService;
 
 
 @Service
-public class CountryServiceImpl implements CountryService {
+public class CountryServiceImpl implements ICountryService {
 
 	@Inject
 	ICountryDao countryDao;

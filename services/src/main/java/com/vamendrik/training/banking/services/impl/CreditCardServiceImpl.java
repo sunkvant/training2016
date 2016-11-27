@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.vamendrik.training.banking.daoapi.ICreditCardDao;
 import com.vamendrik.training.banking.datamodel.CreditCard;
-import com.vamendrik.training.banking.services.CreditCardService;
+import com.vamendrik.training.banking.services.ICreditCardService;
 
 @Service
-public class CreditCardServiceImpl implements CreditCardService {
+public class CreditCardServiceImpl implements ICreditCardService {
 	
 	@Inject
 	private ICreditCardDao creditCardDao;

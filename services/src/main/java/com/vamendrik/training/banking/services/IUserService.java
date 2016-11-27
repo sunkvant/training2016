@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.vamendrik.training.banking.datamodel.User;
 
-public interface UserService {
+public interface IUserService {
 	
 	public List<User> getAllClients();
 	public Long add(String firstName,String lastName,String middleName,

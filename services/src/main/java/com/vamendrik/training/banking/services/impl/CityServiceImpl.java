@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.vamendrik.training.banking.daoapi.ICityDao;
 import com.vamendrik.training.banking.datamodel.City;
-import com.vamendrik.training.banking.services.CityService;
+import com.vamendrik.training.banking.services.ICityService;
 
 @Service
-public class CityServiceImpl implements CityService {
+public class CityServiceImpl implements ICityService {
 	
 	@Inject
 	ICityDao cityDao;

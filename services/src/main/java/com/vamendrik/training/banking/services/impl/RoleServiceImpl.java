@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.vamendrik.training.banking.daoapi.IRoleDao;
 import com.vamendrik.training.banking.datamodel.Role;
-import com.vamendrik.training.banking.services.RoleService;
+import com.vamendrik.training.banking.services.IRoleService;
 
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl implements IRoleService {
 
 	@Inject
 	IRoleDao roleDao;
