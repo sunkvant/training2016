@@ -10,12 +10,17 @@
 	<packaging>war</packaging>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>com.vamendrik.training.banking</groupId>
 			<artifactId>services</artifactId>
 		</dependency>
-	
+
+		<dependency>
+			<groupId>com.vamendrik.training.banking</groupId>
+			<artifactId>datamodel</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
@@ -32,6 +37,19 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-jmx</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-jsp</artifactId>
+		</dependency>
+		
+			        <dependency>
+
+	            <groupId>jstl</groupId>
+
+	            <artifactId>jstl</artifactId>
+
+	        </dependency>
 
 
 		<dependency>
