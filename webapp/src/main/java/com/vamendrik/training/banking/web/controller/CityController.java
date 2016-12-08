@@ -14,6 +14,8 @@ import org.codehaus.jackson.map.JsonDeserializer;
 import org.codehaus.jackson.map.util.JSONPObject;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +24,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.support.HttpRequestHandlerServlet;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter;
 
 import com.vamendrik.training.banking.datamodel.City;
 import com.vamendrik.training.banking.services.ICityService;
@@ -75,22 +81,32 @@ public class CityController {
 }
 	
 	@RequestMapping(value="/city/",method=RequestMethod.POST)
-    public @ResponseBody City createAll(@RequestBody City city,@RequestHeader String host) {
-		System.out.println(city.getCityName());
+    public @ResponseBody City createAll(@RequestBody String cityName,@RequestHeader String host) {
+		//System.out.println(city.getCityName());
+		City city=new City();
 		
+		city.setCityName(cityName);
         
         System.out.println(host);
         return city;
         
 	}
 	
-	@RequestMapping(value="/welcome",method=RequestMethod.GET)
-    public String createAll1(@ModelAttribute("SpringWeb")City city) {
+	@RequestMapping(value="/wel",method=RequestMethod.GET)
+    public ModelAndView createAll1() {
+        
+        return new ModelAndView("wel","command",new City());
+        
+	}
+	
+	@RequestMapping(value="/main",method=RequestMethod.POST)
+    public ModelAndView createAll2(@ModelAttribute City city,@RequestBody String req,Model model) {
 		
-		System.out.println(city.getCityName());
+		System.out.println(req);
+		
+		//model.addAttribute("cityName",city.getCityName());
         
-        
-        return "welcome";
+		return new ModelAndView("main","cit",city);
         
 	}
 

@@ -3,7 +3,7 @@
 <head>
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 </head>
-
+<body>
 
 <div class="container" style="min-height: 500px">
 
@@ -65,7 +65,7 @@
 		$.ajax({
 			type : "POST",
 			contentType : "application/json",
-			url : "http://localhost:8081/city/my/",
+			url : "http://localhost:8081/main",
 			data : JSON.stringify(search),
 			dataType : 'json',
 			crossDomain: true,
