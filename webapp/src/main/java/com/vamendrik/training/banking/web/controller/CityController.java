@@ -109,5 +109,26 @@ public class CityController {
 		return new ModelAndView("main","cit",city);
         
 	}
+	
+	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	public ModelAndView accesssDenied() {
+
+		  ModelAndView model = new ModelAndView();
+
+		  //check if user is login
+
+
+		  model.setViewName("403");
+		  return model;
+
+		}
+	
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login() {
+
+		  return "login";
+
+		}
 
 }

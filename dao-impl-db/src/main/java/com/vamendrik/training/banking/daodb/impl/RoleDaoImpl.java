@@ -99,4 +99,17 @@ public class RoleDaoImpl implements IRoleDao {
 		}
 	}
 
+	@Override
+	public List<Role> getAllByUserId(Long userId) {
+		try {
+			List<Role> roles = this.jdbcTemplate.query("SELECT public.role.* FROM public.role join public.user_to_role on  public.user_to_role.role_id=public.role.id join public.\"user\" on public.user_to_role.user_id= public.\"user\".id where public.\"user\".id=?", new Object[] {userId},new RoleMapper());
+
+			return roles;
+		} catch (EmptyResultDataAccessException e) {
+
+			return new ArrayList<Role>(0);
+
+		}
+	}
+
 }

@@ -20,8 +20,7 @@
 	<context:component-scan base-package="com.vamendrik.training.banking.services.impl" />
 
 	<context:property-placeholder
-		ignore-unresolvable="true" location="classpath:db.properties" />
-
+		ignore-unresolvable="true" location="WEB-INF/config/db.properties" />
 
 
 	<!-- Initialization for data source -->

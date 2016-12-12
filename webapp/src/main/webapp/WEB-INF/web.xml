@@ -14,7 +14,11 @@
 
 	<context-param>
 	    <param-name>contextConfigLocation</param-name>
-	    <param-value>classpath:root-context.xml</param-value>
+	    <param-value>
+	    
+	    	WEB-INF/config/root-context.xml
+	   		WEB-INF/config/spring-security.xml
+	   </param-value>
 	</context-param>
 	
 	
@@ -25,7 +29,9 @@
       </servlet-class>
       	<init-param>
 	   		<param-name>contextConfigLocation</param-name>
-	    	<param-value>WEB-INF/web-context.xml</param-value>
+	    	<param-value>
+	    		WEB-INF/config/web-context.xml
+	    	</param-value>
 		</init-param>
       <load-on-startup>1</load-on-startup>
 	</servlet>
@@ -46,64 +52,18 @@
 	   <url-pattern>/myservlet</url-pattern>
 	</servlet-mapping>
 	
+	
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
+		</filter-class>
+	</filter>
 
-       <servlet id="jsp">
-
-	        <servlet-name>uu</servlet-name>
-
-	        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
-
-	        <init-param>
-
-	            <param-name>logVerbosityLevel</param-name>
-
-	            <param-value>DEBUG</param-value>
-
-	        </init-param>
-
-	        <init-param>
-
-	            <param-name>fork</param-name>
-
-	            <param-value>>false</param-value>
-
-	        </init-param>
-
-	        <init-param>
-
-	            <param-name>keepgenerated</param-name>
-            <param-value>>true</param-value>
-
-	        </init-param>
-
-	        <load-on-startup>0</load-on-startup>
-
-	    </servlet>
-
-	 
-
-	    <servlet-mapping>
-
-	        <servlet-name>uu</servlet-name>
-
-	        <url-pattern>*.jsp</url-pattern>
-
-	        <url-pattern>*.jspf</url-pattern>
-
-	        <url-pattern>*.jspx</url-pattern>
-
-	        <url-pattern>*.xsp</url-pattern>
-
-	        <url-pattern>*.JSP</url-pattern>
-
-	        <url-pattern>*.JSPF</url-pattern>
-
-	        <url-pattern>*.JSPX</url-pattern>
-
-	        <url-pattern>*.XSP</url-pattern>
-
-	    </servlet-mapping>
-
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 
    
 </web-app>

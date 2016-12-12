@@ -1,7 +1,9 @@
 package com.vamendrik.training.banking.services.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -9,15 +11,21 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vamendrik.training.banking.daoapi.IRoleDao;
 import com.vamendrik.training.banking.daoapi.IUserDao;
+import com.vamendrik.training.banking.datamodel.Role;
 import com.vamendrik.training.banking.datamodel.User;
-import com.vamendrik.training.banking.services.UserService;
+import com.vamendrik.training.banking.datamodel.UserToRole;
+import com.vamendrik.training.banking.services.IUserService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 	
 	@Inject
-	private IUserDao clientDao;
+	private IUserDao userDao;
+	
+	@Inject
+	private IRoleDao roleDao;
 	
 	private String generatePassword() {
 		
@@ -41,10 +49,22 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<User> getAllClients() {
+	public List<User> getAll() {
 		
 		
-		return clientDao.getAll();
+		List<User> users = userDao.getAll();
+		
+		
+		
+		for(int i=0; i<users.size(); i++) {
+			
+			List<Role> roles=roleDao.getAllByUserId(users.get(i).getId());
+			users.get(i).setRoles(roles);
+
+			
+		}
+		
+		return users;
 		
 		
 	}
@@ -52,65 +72,55 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(User client) {
 		
-		autorizationDao.delete(autorizationDao.getById(client.getId()));
-		clientDao.delete(client);
+		userDao.delete(client);
 		
 		
 		
 	}
 	
-	@Override
-	public List<Autorization> getAllClientsAutorization() {
-		
-		
-		return autorizationDao.getAll();
-		
-		
-	}
 	
 	@Override
-	public User getClient(Long id) {
+	public User get(Long id) {
 		
+		User user = userDao.getById(id);
 		
-		return clientDao.getById(id);
+		user.setRoles(roleDao.getAllByUserId(user.getId()));
 		
-	}
-	
-	@Override
-	public Autorization getAutorization(Long id) {
-		
-		
-		return autorizationDao.getById(id);
+		return user;
 		
 	}
 	
 	@Override
 	@Transactional
 	public Long add(String firstName,String lastName,String middleName,
-			String numberOfPassport,Date dateBorn,Long cityId,String login,Long roleId) {
+			String numberOfPassport,Date dateBorn,Long cityId,String login,String password,List<Role> roles) {
 		
-		User client=new User();
-		Autorization autorization=new Autorization();
+		User user=new User();
 		
-		client.setFirstName(firstName);
-		client.setLastName(lastName);
-		client.setMiddleName(middleName);
-		client.setNumberOfPassport(numberOfPassport);
-		client.setDateBorn(dateBorn);
-		client.setCityId(cityId);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setMiddleName(middleName);
+		user.setNumberOfPassport(numberOfPassport);
+		user.setDateBorn(dateBorn);
+		user.setCityId(cityId);
+		user.setLogin(login);
+		user.setPassword(password);
+		user.setRoles(roles);
 		
-		Long key=clientDao.insert(client);
-		
-		autorization.setId(key);
-		autorization.setLogin(login);
-		autorization.setPassword(generatePassword());
-		autorization.setRoleId(roleId);
+		Long key=userDao.insert(user);
 		
 		
-		autorizationDao.insert(autorization);
+		
 		
 		return key;
 		
+		
+	}
+
+
+	@Override
+	public void save(User entity) {
+		// TODO Auto-generated method stub
 		
 	}
 	

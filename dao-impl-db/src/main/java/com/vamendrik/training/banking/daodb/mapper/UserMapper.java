@@ -20,8 +20,7 @@ public class UserMapper implements RowMapper<User> {
 		client.setDateBorn(rs.getDate("date_born"));
 		client.setCityId(rs.getLong("city_id"));
 		client.setLogin(rs.getString("login"));
-		client.setPassword("password");
-		client.setRoleId(rs.getLong("role_id"));
+		client.setPassword(rs.getString("password"));
 		client.setDelete(rs.getBoolean("is_delete"));
 		return client;
 	}
