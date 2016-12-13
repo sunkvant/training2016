@@ -10,30 +10,54 @@
 <title>Login</title>
 <spring:url value="resources/css/bootstrap.css" var="bootstrap" />
 <link href="${bootstrap}" rel="stylesheet" />
+
+<style>
+body {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #eee;
+}
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.bg-danger {
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #f2bebe;
+}
+
+.input-lg {
+
+	font-size: 14px;
+
+}
+</style>
+
 </head>
 <body>
-	<div class="container">
-		<form action="j_spring_security_check" method="POST">
-			<div class="form-group col-sm-6">
-				<label for="exampleInputEmail1">Email or login</label> <input
-					type="text" class="form-control" name="user_login"
-					placeholder="Enter email or login">
+	<div class="container"> 
+
+
+		<form class="form-signin" action="j_spring_security_check"
+			method="POST">
+			<h2 class="form-signin-heading">Please sign in</h2>
+			<c:if test="${not empty login.failed}">
+				<p class="bg-danger">${login.failed}</p>
+			</c:if>
+			<div class="form-group ">
+				<input type="text" class="form-control input-lg" name="user_login"
+					placeholder="Enter email or login" required="required">
 			</div>
 			<div class="form-group">
-				<label for="exampleInputPassword1">Пароль</label> <input
-					type="password" class="form-control" name="user_password"
-					placeholder="Password">
+				<input type="password" class="form-control input-lg" name="user_password"
+					placeholder="Password" required="required">
 			</div>
-			<div class="form-group">
-				<label for="exampleInputFile">File input</label> <input type="file"
-					id="exampleInputFile">
-				<p class="help-block">Example block-level help text here.</p>
-			</div>
-			<div class="checkbox">
-				<label> <input type="checkbox"> Проверить меня
-				</label>
-			</div>
-			<button type="submit" class="btn btn-primary">Отправить</button>
+
+			<button type="submit" class="btn btn-lg btn-primary btn-block">Войти</button>
 		</form>
 
 	</div>

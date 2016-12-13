@@ -5,12 +5,14 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<http auto-config="true"  use-expressions="true">
+	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/myservlet" access="isAuthenticated()" />
 		<intercept-url pattern="/wel" access="hasRole('ROLE_ADMIN')" />
 		<access-denied-handler error-page="/403" />
-		<form-login login-page="/login" authentication-failure-url="/login?error=true"
-			username-parameter="user_login" password-parameter="user_password" />
+		<form-login login-page="/login" authentication-failure-url="/login?failed=true"
+			username-parameter="user_login" password-parameter="user_password"
+			default-target-url="/index" always-use-default-target="true"/>
+			<logout logout-success-url="/login"/>
 	</http>
 
 	<authentication-manager>
