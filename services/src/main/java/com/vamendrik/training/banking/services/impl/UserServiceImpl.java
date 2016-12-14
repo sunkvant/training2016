@@ -15,7 +15,6 @@ import com.vamendrik.training.banking.daoapi.IRoleDao;
 import com.vamendrik.training.banking.daoapi.IUserDao;
 import com.vamendrik.training.banking.datamodel.Role;
 import com.vamendrik.training.banking.datamodel.User;
-import com.vamendrik.training.banking.datamodel.UserToRole;
 import com.vamendrik.training.banking.services.IUserService;
 
 @Service
@@ -92,7 +91,7 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	@Transactional
-	public Long add(String firstName,String lastName,String middleName,
+	public Long createUser(String firstName,String lastName,String middleName,
 			String numberOfPassport,Date dateBorn,Long cityId,String login,String password,List<Role> roles) {
 		
 		User user=new User();
@@ -122,6 +121,35 @@ public class UserServiceImpl implements IUserService {
 	public void save(User entity) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<User> getAllByRoleId(Long roleId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<User> getAllByCityId(Long cityId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<User> getAllByCountryId(Long countryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User getByNumberPassport(String numberOfPassport) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User getByLogin(String login) {
+		return userDao.getByLogin(login);
 	}
 	
 

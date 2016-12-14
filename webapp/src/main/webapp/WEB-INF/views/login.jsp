@@ -24,6 +24,7 @@ body {
 	margin: 0 auto;
 }
 
+
 .bg-danger {
 	padding: 10px;
 	border-radius: 5px;

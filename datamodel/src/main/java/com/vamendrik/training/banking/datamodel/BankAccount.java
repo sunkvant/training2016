@@ -5,7 +5,7 @@ public class BankAccount extends AbstractModel {
 	private Long numberAccount;
 	private double sum;
 	private boolean status;
-	private Long clientId;
+	private Long userId;
 	
 	public Long getNumberAccount() {
 		return numberAccount;
@@ -31,12 +31,12 @@ public class BankAccount extends AbstractModel {
 		this.status = status;
 	}
 
-	public Long getClientId() {
-		return clientId;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setClientId(Long clientId) {
-		this.clientId = clientId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 }

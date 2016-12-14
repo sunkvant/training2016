@@ -65,5 +65,11 @@ public class CityServiceImpl implements ICityService {
 		
 		
 	}
+
+	@Override
+	public List<City> getAllByCountryId(Long countryId) {
+		
+		return cityDao.getAllByCountryId(countryId);
+	}
 	
 }

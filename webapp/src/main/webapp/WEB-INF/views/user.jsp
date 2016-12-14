@@ -12,69 +12,67 @@
 <link href="${bootstrap}" rel="stylesheet" />
 <style>
 body {
-
 	background: url(resources/img/bg-body.png) repeat
-
 }
+
 .container {
 	max-width: 950px;
 }
 
-h2 {
-	margin-bottom: 20px;
-}
-
 .header {
-
-	height: 50px;
+	height: 70px;
 	margin-bottom: 30px;
 	border-bottom: 1px solid #bfb7b7;
-	background-color: white;
+	background: url("resources/img/bg-header.png") repeat-x;
+	padding-top: 15px;
 }
 
 .row div {
-	
 	height: 220px;
-	background-color: #f0efff;
-	margin-left: 15px;
+	margin-left: 50px;
 	border-radius: 10px;
-	
-
-}
-
-.wrapper-header {
-
-	width: 950px;
-
-
+	background-image: url("resources/img/bg_creditcard-blue.jpg");
+	background-position: right top;
+	background-repeat: no-repeat;
+	box-shadow: 3px -4px 17px -8px #000000;
 }
 </style>
 
 </head>
 <body>
 
-		<div class="header">
-		
-		<div class="wrapper-header">
+	<div class="header">
+
+		<div class="container">
 			<ul class="nav nav-pills pull-right">
 				<li class="active"><a href="#">Home</a></li>
 				<li><a href="#">Profile</a></li>
 				<li><a href="j_spring_security_logout">Exit</a></li>
 			</ul>
-			<h2>Welcome, ${user.name}</h2>
-			</div>
-			
+			<h5>Welcome, ${user.name}</h5>
 		</div>
+
+	</div>
 
 	<div class="container">
 
+		<div class="card-block">
 
-		
-		<div class="row">
-		
-		
-		<div class="col-md-3"></div>
-		
+			<div class="row">
+
+				<c:forEach var="bankAccount" items="${listBankAccounts}">
+
+
+					<div class="col-md-3">
+
+						<p><a href="/user/${bankAccount.numberAccount}">${bankAccount.numberAccount}</a></p>
+						<p>${bankAccount.sum}</p>
+
+					</div>
+				</c:forEach>
+			</div>
+
+
 		</div>
 
 		<table class="table table-hover table-condensed">

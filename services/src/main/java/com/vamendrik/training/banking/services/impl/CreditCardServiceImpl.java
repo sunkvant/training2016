@@ -39,7 +39,7 @@ public class CreditCardServiceImpl implements ICreditCardService {
 		
 	}
 	
-	public void add(Long bankAccountId) {
+	public void createCreditCard(Long bankAccountId) {
 		
 		Calendar calendar=Calendar.getInstance();
 		
@@ -85,6 +85,30 @@ public class CreditCardServiceImpl implements ICreditCardService {
 		
 		return creditCardDao.getById(id);
 		
+	}
+
+	@Override
+	public List<CreditCard> getAllByBankAccountId(Long bankAccountId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CreditCard> getAllByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CreditCard getByNumberCard(Long numberCard) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CreditCard getLast() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

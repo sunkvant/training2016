@@ -78,7 +78,7 @@ public class Test {
 		
 		TransactionServiceImpl imp7=(TransactionServiceImpl) ctx.getBean("transactionServiceImpl");
 		
-		imp7.TransferToBankAccount(imp6.getAll().get(0), imp6.getAll().get(1), 546.7);
+		imp7.transferToBankAccount(imp6.getAll().get(0), imp6.getAll().get(1), 546.7);
 		
 //		List<Autorization> inf=imp.getAllClientsAutorization();
 //		

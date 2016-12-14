@@ -43,13 +43,13 @@ public class BankAccountServiceImpl implements IBankAccountService {
 	}
 	
 	@Override
-	public void add(double sum,boolean status,Long clientId) {
+	public void createBankAccount(double sum,boolean status,Long clientId) {
 		
 		BankAccount bankAccount=new BankAccount();
 		
 		bankAccount.setSum(sum);
 		bankAccount.setStatus(status);
-		bankAccount.setClientId(clientId);
+		bankAccount.setUserId(clientId);
 		bankAccount.setNumberAccount(generateNumberAccount());
 		
 		bankAccountDao.insert(bankAccount);
@@ -90,8 +90,25 @@ public class BankAccountServiceImpl implements IBankAccountService {
 		return bankAccountDao.getById(id);
 		
 	}
-	
-	
+
+	@Override
+	public List<BankAccount> getAllByUserId(Long userId) {
+
+		return bankAccountDao.getAllByUserId(userId);
+	}
+
+	@Override
+	public BankAccount getByNumberAccount(Long numberAccount) {
+
+		return bankAccountDao.getByNumberAccount(numberAccount);
+	}
+
+	@Override
+	public BankAccount getLast() {
+		
+		return bankAccountDao.getLast();
+		
+	}
 	
 
 }

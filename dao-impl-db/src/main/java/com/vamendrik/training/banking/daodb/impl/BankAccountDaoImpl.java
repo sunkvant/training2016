@@ -68,7 +68,7 @@ public class BankAccountDaoImpl implements IBankAccountDao {
 	public void update(BankAccount entity) {
 		this.jdbcTemplate.update(
 				"update bank_account set number_account=?,sum=?,status=?,client_id=?,isDelete=? where id=?",
-				entity.getNumberAccount(), entity.getSum(), entity.isStatus(), entity.getClientId(), entity.isDelete(),
+				entity.getNumberAccount(), entity.getSum(), entity.isStatus(), entity.getUserId(), entity.isDelete(),
 				entity.getId());
 
 	}
@@ -94,7 +94,7 @@ public class BankAccountDaoImpl implements IBankAccountDao {
 				ps.setLong(1, entity.getNumberAccount());
 				ps.setDouble(2, entity.getSum());
 				ps.setBoolean(3, entity.isStatus());
-				ps.setLong(4, entity.getClientId());
+				ps.setLong(4, entity.getUserId());
 				ps.setBoolean(5, false);
 
 				return ps;

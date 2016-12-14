@@ -1,7 +1,8 @@
 package com.vamendrik.training.banking.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,9 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vamendrik.training.banking.datamodel.BankAccount;
+import com.vamendrik.training.banking.datamodel.User;
+import com.vamendrik.training.banking.services.IBankAccountService;
+import com.vamendrik.training.banking.services.IUserService;
+
 @Controller
 public class HomeController {
 	
+	@Inject
+	IBankAccountService bankAccountService;
+	
+	@Inject
+	IUserService userService;
 	
 	@RequestMapping(value="/user",method=RequestMethod.GET)
 	public ModelAndView index(Authentication auth,Model model) {
@@ -26,7 +37,12 @@ public class HomeController {
 			
 		}
 		
+		User user=userService.getByLogin(auth.getName());
+		
+		List<BankAccount> bankAccounts=bankAccountService.getAllByUserId(user.getId());
+		
 		model.addAttribute("name",auth.getName());
+		model.addAttribute("listBankAccounts", bankAccounts);
 		
 		return new ModelAndView("user","user",model);
 	

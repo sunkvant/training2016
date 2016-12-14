@@ -2,6 +2,7 @@ package com.vamendrik.training.banking.services.impl;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -13,9 +14,10 @@ import com.vamendrik.training.banking.daoapi.ITransactionDao;
 import com.vamendrik.training.banking.datamodel.BankAccount;
 import com.vamendrik.training.banking.datamodel.CreditCard;
 import com.vamendrik.training.banking.datamodel.Transaction;
+import com.vamendrik.training.banking.services.ITransactionService;
 
 @Service
-public class TransactionServiceImpl {
+public class TransactionServiceImpl implements ITransactionService {
 	
 	@Inject
 	ITransactionDao transactionDao;
@@ -47,7 +49,7 @@ public class TransactionServiceImpl {
 	}
 	
 	@Transactional
-	public void TransferToBankAccount(CreditCard source,CreditCard destination,double sum) {
+	public void transferToBankAccount(CreditCard source,CreditCard destination,double sum) {
 		
 		BankAccount bankAccountSource=bankAccountDao.getById(source.getBankAccountId());
 		BankAccount bankAccountDest=bankAccountDao.getById(destination.getBankAccountId());
@@ -61,6 +63,48 @@ public class TransactionServiceImpl {
 		createTransaction(source,destination,sum);
 		
 		
+	}
+
+	@Override
+	public List<Long> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Long entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save(Long entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Long get(Transaction id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Transaction> getAllByCreditCardId(Long creditCardId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Transaction> getAllByBankAccountId(Long bankAccountId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Transaction> getAllByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

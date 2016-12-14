@@ -62,4 +62,16 @@ public class RoleServiceImpl implements IRoleService {
 
 	}
 
+	@Override
+	public Role getByRoleType(String roleType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Role> getAllByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
