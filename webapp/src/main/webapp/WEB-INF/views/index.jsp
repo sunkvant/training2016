@@ -21,7 +21,7 @@ body {
 <body>
 	<div class="container">
 
-		<table class="table table-hover table-striped table-bordered">
+		<table class="table table-hover table-condensed">
 			<tr>
 				<th>Id</th>
 				<th>First Name</th>
@@ -37,8 +37,8 @@ body {
 				<td>Бандура</td>
 				<td>Антон</td>
 				<td>Александрович</td>
-				<td><button class="btn btn-info" type="button">View</button>
-				<button class="btn btn-danger" type="button">Delete</button>
+				<td><button class="btn btn-info btn-sm" type="button">View</button>
+				<button class="btn btn-danger btn-sm" type="button">Delete</button>
 				</td>
 			</tr>
 			<%
