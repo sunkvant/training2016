@@ -12,14 +12,70 @@
 <link href="${bootstrap}" rel="stylesheet" />
 <style>
 body {
-	padding-top: 40px;
-	padding-bottom: 40px;
+
+	background: url(resources/img/bg-body.png) repeat
+
+}
+.container {
+	max-width: 950px;
+}
+
+h2 {
+	margin-bottom: 20px;
+}
+
+.header {
+
+	height: 50px;
+	margin-bottom: 30px;
+	border-bottom: 1px solid #bfb7b7;
+	background-color: white;
+}
+
+.row div {
+	
+	height: 220px;
+	background-color: #f0efff;
+	margin-left: 15px;
+	border-radius: 10px;
+	
+
+}
+
+.wrapper-header {
+
+	width: 950px;
+
+
 }
 </style>
 
 </head>
 <body>
+
+		<div class="header">
+		
+		<div class="wrapper-header">
+			<ul class="nav nav-pills pull-right">
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="#">Profile</a></li>
+				<li><a href="j_spring_security_logout">Exit</a></li>
+			</ul>
+			<h2>Welcome, ${user.name}</h2>
+			</div>
+			
+		</div>
+
 	<div class="container">
+
+
+		
+		<div class="row">
+		
+		
+		<div class="col-md-3"></div>
+		
+		</div>
 
 		<table class="table table-hover table-condensed">
 			<tr>
@@ -38,7 +94,7 @@ body {
 				<td>Антон</td>
 				<td>Александрович</td>
 				<td><button class="btn btn-info btn-sm" type="button">View</button>
-				<button class="btn btn-danger btn-sm" type="button">Delete</button>
+					<button class="btn btn-danger btn-sm" type="button">Delete</button>
 				</td>
 			</tr>
 			<%

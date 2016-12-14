@@ -15,7 +15,7 @@
 body {
 	padding-top: 40px;
 	padding-bottom: 40px;
-	background-color: #eee;
+	background: url(resources/img/bg-body.png) repeat
 }
 
 .form-signin {
