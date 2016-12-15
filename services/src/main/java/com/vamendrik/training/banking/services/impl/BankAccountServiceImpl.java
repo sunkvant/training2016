@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.vamendrik.training.banking.daoapi.IBankAccountDao;
@@ -17,6 +18,7 @@ public class BankAccountServiceImpl implements IBankAccountService {
 	@Inject
 	IBankAccountDao bankAccountDao;
 	
+	private static final Logger logger = Logger.getLogger(BankAccountServiceImpl.class);
 	
 	private Long generateNumberAccount() {
 		

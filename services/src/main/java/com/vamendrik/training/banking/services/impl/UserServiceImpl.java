@@ -108,11 +108,7 @@ public class UserServiceImpl implements IUserService {
 		
 		Long key=userDao.insert(user);
 		
-		
-		
-		
 		return key;
-		
 		
 	}
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class HomeController {
 	@Inject
 	IUserService userService;
 	
+	private static final Logger logger = Logger.getLogger(HomeController.class);
+	
 	@RequestMapping(value="/user",method=RequestMethod.GET)
 	public ModelAndView index(Authentication auth,Model model) {
 		
@@ -37,6 +40,10 @@ public class HomeController {
 			
 		}
 		
+		
+		logger.info("User with [UserName="+auth.getName()+"] success loginned");
+		try {
+		
 		User user=userService.getByLogin(auth.getName());
 		
 		List<BankAccount> bankAccounts=bankAccountService.getAllByUserId(user.getId());
@@ -44,8 +51,19 @@ public class HomeController {
 		model.addAttribute("name",auth.getName());
 		model.addAttribute("listBankAccounts", bankAccounts);
 		
-		return new ModelAndView("user","user",model);
+		
 	
+		
+		} catch (Exception e) {
+			
+			logger.error("User with [UserName="+auth.getName()+"] not found");
+			
+			
+		}
+		
+		return new ModelAndView("user","user",model);
+		
+
 	}
 	
 	@RequestMapping(value="/admin",method=RequestMethod.GET)
