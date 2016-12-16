@@ -2,8 +2,12 @@ package com.vamendrik.training.banking.datamodel;
 
 public class City extends AbstractModel {
 	
+	@Field(name="city_name")
 	private String cityName;
+	
+	@Field(name="country_id")
 	private Long coutryId;
+	
 	
 	public String getCityName() {
 		return cityName;
