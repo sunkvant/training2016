@@ -10,5 +10,6 @@ import java.lang.annotation.Target;
 public @interface Refactor {
 	
 	String object();
+	String table();
 
 }

@@ -26,118 +26,69 @@ public abstract class AbstractDaoImpl<E, T> implements IAbstractDao<E, T> {
 
 	@Inject
 	private JdbcTemplate jdbcTemplate;
+
+	final List<String> fieldsFromClass = AnnotationAnalizator.getFields();
+	final Map<String, String> mapFieldsFromClass = AnnotationAnalizator.getMapFields();
+
+	final List<String> fieldsFromSuperclass = AnnotationAnalizator.getFieldsSuperClass();
+	final Map<String, String> mapFieldsFromSuperClass = AnnotationAnalizator.getMapFieldsSuperClass();
+	
 	private Class object;
-	private E obj12;
-
-	protected Class getCurrentClass() {
-
-		return this.getClass();
-
-	}
+	private String tableName;
 
 	@Override
 	public List<E> getAll() throws ClassNotFoundException, NoSuchFieldException, SecurityException,
 			InstantiationException, IllegalAccessException {
 
-		final Class obj = getCurrentClass();
-
-		if (obj.isAnnotationPresent(Refactor.class)) {
-
-			Annotation annotation = obj.getAnnotation(Refactor.class);
-
-			Refactor refactor = (Refactor) annotation;
-
-			System.out.println(refactor.object());
-
-			object =  Class.forName("com.vamendrik.training.banking.datamodel." + refactor.object());
-
-		}
-
-		final Map<String,String> mapFields=new HashMap<String,String>();
-		final Map<String,Class> mapTypes=new HashMap<String,Class>();
-		final List<String> list=new ArrayList<String>();
-		
-		
-		for (int i = 0; i < object.getSuperclass().getDeclaredFields().length; i++) {
-			
-			if (object.getSuperclass().getDeclaredFields()[i].isAnnotationPresent(Field.class)) {
-				
-				Annotation annotation=object.getSuperclass().getDeclaredFields()[i].getAnnotation(Field.class);
-				Field field=(Field)annotation;
-				list.add(object.getSuperclass().getDeclaredFields()[i].getName());
-				mapTypes.put(object.getSuperclass().getDeclaredFields()[i].getName(), object.getSuperclass().getDeclaredFields()[i].getType());
-				mapFields.put(object.getSuperclass().getDeclaredFields()[i].getName(), field.name());
-			}
-				
-		}
-		
-		
-		for (int i = 0; i < object.getDeclaredFields().length; i++) {
-			
-			if (object.getDeclaredFields()[i].isAnnotationPresent(Field.class)) {
-				
-				Annotation annotation=object.getDeclaredFields()[i].getAnnotation(Field.class);
-				Field field=(Field)annotation;
-				list.add(object.getDeclaredFields()[i].getName());
-				mapTypes.put(object.getDeclaredFields()[i].getName(), object.getSuperclass().getDeclaredFields()[i].getType());
-				mapFields.put(object.getDeclaredFields()[i].getName(), field.name());
-			}
-			
-		}
-		
-	
-		
-		for(int i=0; i<list.size(); i++) {
-			
-			System.out.println(list.get(i)+" "+mapFields.get(list.get(i)));
-			
-		}
-		
-		
-		
-		
-		
-		
+		this.object = AnnotationAnalizator.initialize(this.getClass());
+		this.tableName=AnnotationAnalizator.getTableName();
 
 		try {
 			List<E> cities = this.jdbcTemplate.query("select * from city", new RowMapper<E>() {
-				private E obj1;
+				private E instance;
+
 				@Override
 				public E mapRow(ResultSet rs, int rowNum) throws SQLException {
-					
+
 					try {
-						obj1=(E)object.newInstance();
+						instance = (E) object.newInstance();
 					} catch (InstantiationException | IllegalAccessException e) {
-						// TODO Auto-generated catch block
+
 						e.printStackTrace();
 					}
-					
-					for(int i=0; i<list.size(); i++) {
-						try {
-							java.lang.reflect.Field field=object.getDeclaredField(list.get(i));
-							field.setAccessible(true);
-							field.set(obj1, rs.getObject(mapFields.get(list.get(i))) );
-						} catch (NoSuchFieldException | SecurityException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (IllegalArgumentException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (IllegalAccessException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-						
-					}
-					return (E) obj1;
 
-					
+					try {
+						for (int i = 0; i < fieldsFromClass.size(); i++) {
+
+							java.lang.reflect.Field field;
+
+							field = object.getDeclaredField(fieldsFromClass.get(i));
+
+							field.setAccessible(true);
+							field.set(instance, rs.getObject(mapFieldsFromClass.get(fieldsFromClass.get(i))));
+						}
+
+						for (int i = 0; i < fieldsFromSuperclass.size(); i++) {
+
+							java.lang.reflect.Field field = object.getSuperclass()
+									.getDeclaredField(fieldsFromSuperclass.get(i));
+							field.setAccessible(true);
+							field.set(instance, rs.getObject(mapFieldsFromSuperClass.get(fieldsFromSuperclass.get(i))));
+						}
+
+						return (E) instance;
+
+					} catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+							| IllegalAccessException e) {
+						return null;
+						//e.printStackTrace();
+					}
+
 				}
 
 			});
 			return cities;
-			
+
 		} catch (EmptyResultDataAccessException e) {
 
 			return new ArrayList<E>(0);

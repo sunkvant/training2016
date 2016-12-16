@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import com.vamendrik.training.banking.datamodel.City;
 import com.vamendrik.training.banking.datamodel.Refactor;
 
-@Refactor(object = "City")
+@Refactor(object = "City",table="city")
 @Component
 public class TestAnnotation extends AbstractDaoImpl<City,Long> {
 	
