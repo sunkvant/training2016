@@ -2,11 +2,20 @@ package com.vamendrik.training.banking.datamodel;
 
 import java.util.Date;
 
+import com.vamendrik.training.banking.datamodel.annotations.Field;
+
 public class CreditCard extends AbstractModel {
 	
+	@Field(name="number_card")
 	private Long numberCard;
+	
+	@Field(name="validity")
 	private Date validity;
-	private boolean status;
+	
+	@Field(name="status")
+	private Boolean status;
+	
+	@Field(name="bank_account_id")
 	private Long bankAccountId;
 	
 	public Long getNumberCard() {

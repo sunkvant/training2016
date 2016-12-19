@@ -1,4 +1,4 @@
-package com.vamendrik.training.banking.datamodel;
+package com.vamendrik.training.banking.datamodel.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

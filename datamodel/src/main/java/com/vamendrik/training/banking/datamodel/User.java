@@ -5,16 +5,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.vamendrik.training.banking.datamodel.annotations.Field;
+
 public class User extends AbstractModel {
 
+	@Field(name="first_name")
 	private String firstName;
+	
+	@Field(name="last_name")
 	private String lastName;
+	
+	@Field(name="middle_name")
 	private String middleName;
+	
+	@Field(name="number_of_passport")
 	private String numberOfPassport;
+	
+	@Field(name="login")
 	private String login;
+	
+	@Field(name="password")
 	private String password;
+	
+	@Field(name="date_born")
 	private Date dateBorn;
+	
+	@Field(name="city_id")
 	private Long cityId;
+	
 	private List<Role> roles;
 
 	public String getFirstName() {

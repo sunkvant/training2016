@@ -3,12 +3,23 @@ package com.vamendrik.training.banking.datamodel;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 
+import com.vamendrik.training.banking.datamodel.annotations.Field;
+
 public class Transaction extends AbstractModel {
 	
+	@Field(name="date_completion")
 	private Timestamp dateCompletion;
-	private boolean status;
-	private double sum;
+	
+	@Field(name="status")
+	private Boolean status;
+	
+	@Field(name="sum")
+	private Double sum;
+	
+	@Field(name="credit_card_id")
 	private Long creditCardId;
+	
+	@Field(name="from_to")
 	private Long fromTo;
 	
 	public Timestamp getDateCompletion() {

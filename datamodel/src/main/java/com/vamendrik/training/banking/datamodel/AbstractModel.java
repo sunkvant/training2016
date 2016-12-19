@@ -1,29 +1,29 @@
 package com.vamendrik.training.banking.datamodel;
 
+import com.vamendrik.training.banking.datamodel.annotations.Field;
+
 public abstract class AbstractModel {
 	
 	@Field(name="id")
 	private Long id;
 	
 	@Field(name="is_delete")
-	private boolean isDelete; 
+	private Boolean delete; 
 
 	public Long getId() {
 		return id;
 	}
 	
-	@Setter(field="id")
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public boolean isDelete() {
-		return isDelete;
+	public Boolean getDelete() {
+		return delete;
 	}
 
-	@Setter(field="is_delete")
-	public void setDelete(boolean isDelete) {
-		this.isDelete = isDelete;
+	public void setDelete(Boolean delete) {
+		this.delete = delete;
 	}
 	
 

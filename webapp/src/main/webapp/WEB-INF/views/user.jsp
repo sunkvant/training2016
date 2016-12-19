@@ -10,6 +10,7 @@
 <title>Login</title>
 <spring:url value="resources/css/bootstrap.css" var="bootstrap" />
 <link href="${bootstrap}" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <style>
 body {
 	background: url(resources/img/bg-body.png) repeat
@@ -27,8 +28,8 @@ body {
 	padding-top: 15px;
 }
 
-.row div {
-	height: 220px;
+.card-block {
+	height: 195px;
 	margin-left: 50px;
 	border-radius: 10px;
 	background-image: url("resources/img/bg_creditcard-blue.jpg");
@@ -46,27 +47,38 @@ body {
 		<div class="container">
 			<ul class="nav nav-pills pull-right">
 				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Profile</a></li>
+				<li><a href="/user/profile">Profile</a></li>
 				<li><a href="j_spring_security_logout">Exit</a></li>
 			</ul>
-			<h5>Welcome, ${user.name}</h5>
+			<h5>Welcome, ${currentUser.firstName} ${currentUser.lastName}
+				${currentUser.middleName}</h5>
 		</div>
 
 	</div>
 
 	<div class="container">
 
-		<div class="card-block">
+		<div>
 
 			<div class="row">
 
 				<c:forEach var="bankAccount" items="${listBankAccounts}">
 
 
-					<div class="col-md-3">
+					<div class="col-md-3 card-block">
 
-						<p><a href="/user/${bankAccount.numberAccount}">${bankAccount.numberAccount}</a></p>
-						<p>${bankAccount.sum}</p>
+						<h4>
+							<a href="/user/bank/${bankAccount.numberAccount}">Номер
+								счета: ${bankAccount.numberAccount}</a>
+						</h4>
+						<p style="margin-top: 30px;">
+							Остаток: <strong>${bankAccount.sum}</strong>
+						</p>
+
+<div id="tran" class="btn-group" style="margin-top:70px;">
+  <a href="user/transfer/${bankAccount.numberAccount}"><button type="button" class="btn btn-danger" id="transfer" name="${bankAccount.numberAccount}" >Перевод</button></a>
+  <a href="user/transactions/${bankAccount.numberAccount}"><button type="button" class="btn btn-danger" id="transaction" style="width: 120px;">Транзакции</button></a>
+</div>
 
 					</div>
 				</c:forEach>
@@ -85,6 +97,8 @@ body {
 			</tr>
 			<%
 				for (int i = 0; i < 10; i++) {
+					
+				
 			%>
 			<tr>
 				<td><%=i%></td>

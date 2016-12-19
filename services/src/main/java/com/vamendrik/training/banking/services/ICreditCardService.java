@@ -6,7 +6,7 @@ import com.vamendrik.training.banking.datamodel.CreditCard;
 
 public interface ICreditCardService extends IAbstractService<CreditCard,Long> {
 	
-	public List<CreditCard> getAllByBankAccountId(Long bankAccountId);
+	public List<CreditCard> getAllByNumberBankAccount(Long numberAccount);
 	public List<CreditCard> getAllByUserId(Long userId);
 	public CreditCard getByNumberCard(Long numberCard);
 	public CreditCard getLast();

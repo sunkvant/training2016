@@ -1,10 +1,19 @@
 package com.vamendrik.training.banking.datamodel;
 
-public class BankAccount extends AbstractModel {
+import com.vamendrik.training.banking.datamodel.annotations.Field;
 
+public class BankAccount extends AbstractModel {
+	
+	@Field(name="number_account")
 	private Long numberAccount;
-	private double sum;
-	private boolean status;
+	
+	@Field(name="sum")
+	private Double sum;
+	
+	@Field(name="status")
+	private Boolean status;
+	
+	@Field(name="user_id")
 	private Long userId;
 
 	public Long getNumberAccount() {

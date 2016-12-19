@@ -1,5 +1,7 @@
 package com.vamendrik.training.banking.datamodel;
 
+import com.vamendrik.training.banking.datamodel.annotations.Field;
+
 public class City extends AbstractModel {
 	
 	@Field(name="city_name")

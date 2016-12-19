@@ -32,9 +32,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter;
 
 import com.vamendrik.training.banking.datamodel.City;
+import com.vamendrik.training.banking.datamodel.Country;
 import com.vamendrik.training.banking.services.ICityService;
 
-@Controller
+@RestController
 
 public class CityController {
 	
@@ -69,26 +70,24 @@ public class CityController {
 		City city=requestEntity.getBody();
 
         System.out.println("request body : " + requestEntity.getBody());
-        //HttpHeaders headers = requestEntity.getHeaders();
-        //System.out.println("request headers : " + headers);
-        MultiValueMap<String,String> map=new HttpHeaders();
+        HttpHeaders headers = requestEntity.getHeaders();
+        System.out.println("request headers : " + headers);
+       MultiValueMap<String,String> map=new HttpHeaders();
         map.add("Access-Control-Allow-Origin", "*");
         map.add("Access-Control-Allow-Credentials", "true");
-        map.add("Access-Control-Allow-Methods", "*");
-        ResponseEntity<City> responseEntity = new ResponseEntity<City>(city,map,
+       map.add("Access-Control-Allow-Methods", "*");
+        ResponseEntity<City> responseEntity = new ResponseEntity<City>(city,
                                                                      HttpStatus.OK);
         return responseEntity;
 }
 	
 	@RequestMapping(value="/city/",method=RequestMethod.POST)
-    public @ResponseBody City createAll(@RequestBody String cityName,@RequestHeader String host) {
+    public Country createAll(@RequestBody Country country,@RequestHeader String host) {
 		//System.out.println(city.getCityName());
-		City city=new City();
-		
-		city.setCityName(cityName);
+
         
         System.out.println(host);
-        return city;
+        return country;
         
 	}
 	

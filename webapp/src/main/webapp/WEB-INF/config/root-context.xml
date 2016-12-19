@@ -15,12 +15,19 @@
 	    http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 	<context:annotation-config />
+	<tx:annotation-driven/>
 
 	<context:component-scan base-package="com.vamendrik.training.banking.daodb.impl" />
 	<context:component-scan base-package="com.vamendrik.training.banking.services.impl" />
+	<context:component-scan base-package="com.vamendrik.training.banking.services.cache" />
 
 	<context:property-placeholder
 		ignore-unresolvable="true" location="WEB-INF/config/db.properties" />
+
+
+
+
+
 
 
 	<!-- Initialization for data source -->

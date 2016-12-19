@@ -17,6 +17,7 @@
 	<context:annotation-config />
 
 	<context:component-scan base-package="com.vamendrik.training.banking.daodb.impl" />
+	<context:component-scan base-package="com.vamendrik.training.banking.daodb.mapper" />
 	<context:component-scan base-package="com.vamendrik.training.banking.services.impl" />
 
 	<context:property-placeholder

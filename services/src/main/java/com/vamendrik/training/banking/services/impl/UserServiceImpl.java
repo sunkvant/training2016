@@ -16,6 +16,7 @@ import com.vamendrik.training.banking.daoapi.IUserDao;
 import com.vamendrik.training.banking.datamodel.Role;
 import com.vamendrik.training.banking.datamodel.User;
 import com.vamendrik.training.banking.services.IUserService;
+import com.vamendrik.training.banking.services.cache.ICache;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -25,6 +26,8 @@ public class UserServiceImpl implements IUserService {
 	
 	@Inject
 	private IRoleDao roleDao;
+	
+	@Inject ICache cache;
 	
 	private String generatePassword() {
 		
@@ -145,7 +148,23 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User getByLogin(String login) {
-		return userDao.getByLogin(login);
+		Object obj=cache.get(User.class, login, "login");
+		if (obj!=null) {
+			
+			return (User) obj;
+			
+		} else {
+			
+			User user=userDao.getByLogin(login);
+			
+			if (user!=null) {
+				cache.put(User.class, user,"login");
+			}
+		
+			return user;
+		
+		
+		}
 	}
 	
 

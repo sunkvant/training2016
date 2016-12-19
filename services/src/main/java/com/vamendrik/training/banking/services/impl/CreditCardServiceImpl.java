@@ -88,9 +88,9 @@ public class CreditCardServiceImpl implements ICreditCardService {
 	}
 
 	@Override
-	public List<CreditCard> getAllByBankAccountId(Long bankAccountId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CreditCard> getAllByNumberBankAccount(Long numberAccount) {
+
+		return creditCardDao.getAllByNumberBankAccount(numberAccount);
 	}
 
 	@Override

@@ -25,12 +25,6 @@ body {
 }
 
 
-.bg-danger {
-	padding: 10px;
-	border-radius: 5px;
-	background-color: #f2bebe;
-}
-
 .input-lg {
 
 	font-size: 14px;
@@ -45,9 +39,9 @@ body {
 
 		<form class="form-signin" action="j_spring_security_check"
 			method="POST">
-			<h2 class="form-signin-heading">Please sign in</h2>
+			<h2>Please sign in</h2>
 			<c:if test="${not empty login.failed}">
-				<p class="bg-danger">${login.failed}</p>
+				<div class="alert alert-danger">${login.failed}</div>
 			</c:if>
 			<div class="form-group ">
 				<input type="text" class="form-control input-lg" name="user_login"
