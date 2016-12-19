@@ -61,60 +61,60 @@ body {
 
 
 	<div class="container">
-		<div id="feedback"></div>
-		<h3 style="margin-top: -10px; margin-left: 90px; margin-bottom: 50px;">Transfer</h3>
+	
+				<h3 style="margin-top: -10px; margin-left: 90px; margin-bottom: 50px;">Edit
+			profile</h3>
+<form id="search-form" class="form-horizontal" role="form">
 
+		<div class="form-group" style="margin-top: 50px; padding-left: 20px;">
 
-			<div class="form-group" style="margin-top: 50px;padding-left: 20px;">
-
-				<label class="col-sm-2 control-label">Перевести с карты</label> <select
+				<label class="col-sm-4 control-label">Перевести с карты</label> 
+				
+				<select
 					id="listcountry" style="width: 220px; height: 30px;"
 					class="col-sm-3">
 
 					<c:forEach var="card" items="${listCards}">
 
-						
-							<option value="${card.id}" selected>${card.numberCard}</option>
-							
+
+						<option value="${card.id}" selected>${card.numberCard}</option>
+
 					</c:forEach>
 
-				</select> 
-				
-				
-				
+				</select>
+		</div>
 
 
 
-			</div>
-			
-			
 
 
-
-			<div class="form-group">
-			<label class="col-sm-2 control-label">На карту</label> 
-							<div class="col-sm-4">
-					<input type="text" class="form-control" id="last_name"
-						placeholder="Enter last name" />
+		<div class="form-group">
+			<label class="col-sm-4 control-label">На карту</label>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" id="first_name"
+					placeholder="Enter last name" />
 
 			</div>
-			
-			</div>
-			
-			<div class="form-group">
-			<label class="col-sm-2 control-label">Сумма</label> 
-							<div class="col-sm-4">
-					<input type="text" class="form-control" id="last_name"
-						placeholder="Enter last name" />
+
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-4 control-label">Сумма</label>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" id="last_name"
+					placeholder="Enter last name" />
 
 			</div>
-			
-			</div>
-			
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" id="act" class="btn btn-default">Перевести</button>
-				</div>
-			</div>
+
+		</div>
+
+</form>
+
+		<div class="col-sm-offset-2 col-sm-10">
+			<button id="send" class="btn btn-default">Перевести</button>
+		</div>
+
+	</div>
 
 
 
@@ -122,22 +122,21 @@ body {
 	<script>
 		jQuery(document).ready(function($) {
 
-			$("#act").click(function(event) {
+			$("#send").click(function(event) {
 
-				var search = {}
-				search["id"] = $(this).attr('value');
-				search["countryName"] = $(this).text();
-
+				var search = $("#first_name").val();
+		
+				
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",
 					url : "/user/transfer/",
 					data : JSON.stringify(search),
-					dataType : 'json',
+					dataType : 'text',
 					timeout : 100000,
 					success : function(data) {
 						console.log("SUCCESS: ", data);
-						display(data);
+						alert(data);
 					},
 					error : function(e) {
 						console.log("ERROR: ", e);

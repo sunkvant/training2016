@@ -20,7 +20,6 @@ body {
 		url(${pageContext.request.contextPath}/resources/img/bg-body.png)
 		repeat
 }
-
 .header {
 	height: 70px;
 	margin-bottom: 30px;
@@ -30,11 +29,9 @@ body {
 		repeat-x;
 	padding-top: 15px;
 }
-
 .container {
 	max-width: 950px;
 }
-
 .input-lg {
 	font-size: 14px;
 }
@@ -160,15 +157,18 @@ body {
 
 
 
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" id="btn-search" class="btn btn-default">Войти</button>
-				</div>
-			</div>
-
-
 
 		</form>
+		
+
+							<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10" ">
+					<button id="send" class="btn btn-default" style="margin-left: -10px;">Сохранить</button>
+				</div>
+			</div>
+		
+		
+
 
 
 	</div>
@@ -176,13 +176,10 @@ body {
 
 	<script>
 		jQuery(document).ready(function($) {
-
 			$("#listcountry").find("option").click(function(event) {
-
 				var search = {}
 				search["id"] = $(this).attr('value');
 				search["countryName"] = $(this).text();
-
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",
@@ -203,26 +200,54 @@ body {
 						enableSearchButton(true);
 					}
 				});
-
 			});
-
+			
+			
+			$("#send").click(function(event) {
+				var search = {}
+				
+				search["firstName"] = $("#first_name").val();
+				search["lastName"] = $("#last_name").val();
+				search["middleName"] = $("#middle_name").val();
+				search["numberOfPassport"] = $("#middle_name").val();
+				search["dateBorn"] = $("#date_born").val();
+				search["cityId"] = $("#listcity").val();
+				
+				
+				$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url : "/user/profile/update",
+					data : JSON.stringify(search),
+					dataType : 'json',
+					timeout : 100000,
+					success : function(data) {
+						console.log("SUCCESS: ", data);
+						alert("Данные обновлены");
+					},
+					error : function(e) {
+						console.log("ERROR: ", e);
+					},
+					done : function(e) {
+						console.log("DONE");
+					}
+				});
+			});
+			
 		});
-
+		
+		
+		
 		function display(data) {
 			var json = "<h4>Ajax Response</h4><pre>"
 					+ JSON.stringify(data, null, 4) + "</pre>";
 			var obj = jQuery.parseJSON(JSON.stringify(data, null, 4));
-
 			$('#listcity').html("");
-
 			for (var i = 0; i < obj.length; i++) {
-
 				$('#listcity').append(
 						"<option value="+obj[i].id+">" + obj[i].cityName
 								+ "</option>");
-
 			}
-
 		}
 	</script>
 
@@ -232,3 +257,4 @@ body {
 </body>
 
 </html>
+

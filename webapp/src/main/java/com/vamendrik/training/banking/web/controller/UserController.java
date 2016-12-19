@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.http.HttpEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,12 +49,12 @@ public class UserController {
 	public ModelAndView user(Authentication auth,Model model) {
 		
 		
-		User user=userService.getByLogin(auth.getName());
+		//User user=userService.getByLogin(auth.getName());
 		
-		List<BankAccount> bankAccounts=bankAccountService.getAllByUserId(user.getId());
+		//List<BankAccount> bankAccounts=bankAccountService.getAllByUserId(user.getId());
 		
-		model.addAttribute("currentUser",user);
-		model.addAttribute("listBankAccounts", bankAccounts);
+		//model.addAttribute("currentUser",user);
+		//model.addAttribute("listBankAccounts", bankAccounts);
 		
 		return new ModelAndView("user","user",model);
 		
@@ -80,15 +82,15 @@ public class UserController {
 	public ModelAndView profile(Authentication auth,Model model) {
 		 
 		
-		User user=userService.getByLogin(auth.getName());
-		Long currentCountry=cityService.get(user.getCityId()).getCountryId();
-		List<City> cities=cityService.getAllByCountryId(currentCountry);
-		List<Country> countries=countryService.getAll();
+		//User user=userService.getByLogin(auth.getName());
+		//Long currentCountry=cityService.get(user.getCityId()).getCountryId();
+		//List<City> cities=cityService.getAllByCountryId(currentCountry);
+		//List<Country> countries=countryService.getAll();
 		
-		model.addAttribute("currentUser", user);
-		model.addAttribute("listCities", cities);
-		model.addAttribute("listCountries", countries);
-		model.addAttribute("currentCountry", currentCountry);
+		//model.addAttribute("currentUser", user);
+		//model.addAttribute("listCities", cities);
+		//model.addAttribute("listCountries", countries);
+		//model.addAttribute("currentCountry", currentCountry);
 		
 		return new ModelAndView("profile","profile",model);
 	
@@ -97,16 +99,54 @@ public class UserController {
 
 	}
 	
+	
+	@RequestMapping(value="/user/profile/update",method=RequestMethod.POST)
+	public User profilePut(@RequestBody User user,Authentication auth,Model model) {
+		 
+		
+		
+		//User user=userService.getByLogin(auth.getName());
+		//Long currentCountry=cityService.get(user.getCityId()).getCountryId();
+		//List<City> cities=cityService.getAllByCountryId(currentCountry);
+		//List<Country> countries=countryService.getAll();
+		
+		//model.addAttribute("currentUser", user);
+		//model.addAttribute("listCities", cities);
+		//model.addAttribute("listCountries", countries);
+		//model.addAttribute("currentCountry", currentCountry);
+		
+		return user;
+	
+
+	}
+	
 	@RequestMapping(value="/user/transfer/{numberAccount}",method=RequestMethod.GET)
 	public ModelAndView transfer(@PathVariable Long numberAccount,Authentication auth,Model model) {
 		 
 		
-		User user=userService.getByLogin(auth.getName());
-		List<CreditCard> creditCards=creditCardService.getAllByNumberBankAccount(numberAccount);
+		//User user=userService.getByLogin(auth.getName());
+		//List<CreditCard> creditCards=creditCardService.getAllByNumberBankAccount(numberAccount);
 		
-		model.addAttribute("listCards",creditCards);
+		//model.addAttribute("listCards",creditCards);
 		
 		return new ModelAndView("transfer","transfer",model);
+	
+		
+		
+
+	}
+	
+	
+	@RequestMapping(value="/user/transfer/",method=RequestMethod.POST)
+	public @ResponseBody String transfer4(HttpEntity<String> obj,Authentication auth,Model model) {
+		 
+		
+		//User user=userService.getByLogin(auth.getName());
+		//List<CreditCard> creditCards=creditCardService.getAllByNumberBankAccount(numberAccount);
+		
+		//model.addAttribute("listCards",creditCards);
+		
+		return obj.getBody()+" custom";
 	
 		
 		

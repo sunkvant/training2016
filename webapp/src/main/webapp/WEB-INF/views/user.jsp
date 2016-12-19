@@ -76,8 +76,8 @@ body {
 						</p>
 
 <div id="tran" class="btn-group" style="margin-top:70px;">
-  <a href="user/transfer/${bankAccount.numberAccount}"><button type="button" class="btn btn-danger" id="transfer" name="${bankAccount.numberAccount}" >Перевод</button></a>
-  <a href="user/transactions/${bankAccount.numberAccount}"><button type="button" class="btn btn-danger" id="transaction" style="width: 120px;">Транзакции</button></a>
+  <a href="user/transfer/${bankAccount.numberAccount}"><button type="button" class="btn btn-danger" name="${bankAccount.numberAccount}" >Перевод</button></a>
+  <a href="user/transactions/${bankAccount.numberAccount}"><button type="button" class="btn btn-danger"  style="width: 120px;">Транзакции</button></a>
 </div>
 
 					</div>
