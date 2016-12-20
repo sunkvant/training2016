@@ -62,8 +62,8 @@ body {
 
 	<div class="container">
 	
-				<h3 style="margin-top: -10px; margin-left: 90px; margin-bottom: 50px;">Edit
-			profile</h3>
+				<h4 style="margin-top: -10px; margin-left: 150px;">Номер счета: <span style=" font-size: 17px;">${numberAccount} </span> </h4> 
+				<h4 style=" margin-left: 150px; margin-bottom: 50px;">Сумма на счету:  <span style="color: blue; font-size: 15px;">${sum}</span></h4>
 <form id="search-form" class="form-horizontal" role="form">
 
 		<div class="form-group" style="margin-top: 50px; padding-left: 20px;">
@@ -110,7 +110,7 @@ body {
 
 </form>
 
-		<div class="col-sm-offset-2 col-sm-10">
+		<div class="col-sm-offset-3" style="margin-top: 50px;">
 			<button id="send" class="btn btn-default">Перевести</button>
 		</div>
 

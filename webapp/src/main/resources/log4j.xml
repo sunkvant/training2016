@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
-<log4j:configuration debug="true"
-	xmlns:log4j='http://jakarta.apache.org/log4j/'>
 
-	<appender name="console" class="org.apache.log4j.ConsoleAppender">
-	    <layout class="org.apache.log4j.PatternLayout">
-		<param name="ConversionPattern"
-		  value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
-	    </layout>
-	</appender>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-	<root>
-		<level value="info" />
-		<appender-ref ref="console" />
-	</root>
+    <appender name="jdbcAppender" class="org.apache.log4j.jdbc.JDBCAppender"> 
+        <param name="URL" value="jdbc:postgresql:bank" /> 
+        <param name="Driver" value="org.postgresql.Driver" /> 
+        <param name="User" value="postgres" /> 
+        <param name="Password" value="admin" /> 
+        <layout class="org.apache.log4j.PatternLayout"> 
+            <param name="ConversionPattern" 
+              value="INSERT INTO public.logs (public.logs.log_date, public.logs.log_level, public.logs.location, public.logs.message) VALUES ( '%d{yyyy-MM-dd}','%p', '%C;%L', '%m' )" 
+            /> 
+        </layout> 
+    </appender> 
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender"> 
+        <layout class="org.apache.log4j.PatternLayout"> 
+            <param name="ConversionPattern" 
+              value="%d{ISO8601} %p (%C;%L) %m%n" 
+            /> 
+        </layout> 
+    </appender> 
+
+    <logger name="logging.simple.jdbcLogger"> 
+        <level value="debug"/> 
+        <appender-ref ref="jdbcAppender"/> 
+    </logger> 
+
+    <root> 
+        <level value="error"/> 
+        <appender-ref ref="STDOUT"/> 
+    </root> 
 
 </log4j:configuration>

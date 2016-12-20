@@ -87,34 +87,6 @@ body {
 
 		</div>
 
-		<table class="table table-hover table-condensed">
-			<tr>
-				<th>Id</th>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Middle Name</th>
-				<th width="150px">#</th>
-			</tr>
-			<%
-				for (int i = 0; i < 10; i++) {
-					
-				
-			%>
-			<tr>
-				<td><%=i%></td>
-				<td>Бандура</td>
-				<td>Антон</td>
-				<td>Александрович</td>
-				<td><button class="btn btn-info btn-sm" type="button">View</button>
-					<button class="btn btn-danger btn-sm" type="button">Delete</button>
-				</td>
-			</tr>
-			<%
-				}
-			%>
-
-		</table>
-
 	</div>
 
 

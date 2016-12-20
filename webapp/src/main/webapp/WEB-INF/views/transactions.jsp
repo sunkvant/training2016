@@ -4,7 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html>
 <head>
@@ -71,8 +71,14 @@ body {
 				<div style="padding: 20px;">
 
 					<p style="float: left; margin-right: 35px;">
-						<strong>Все операции по текущей карте:</strong>
+						<c:if test="${not empty numberCard}">
+							<strong>Все операции по текущей карте:</strong>
 						${numberCard}
+						</c:if>
+						<c:if test="${not empty numberAccount}">
+							<strong>Все операции по текущему счету:</strong>
+						${numberAccount}
+						</c:if>
 					</p>
 
 
@@ -81,6 +87,15 @@ body {
 				<h5 style="margin-left: 10px; margin-top: 30px; margin-bottom: 20px">
 					<strong>Операции:</strong>
 				</h5>
+
+				<c:if test="${colTransactions eq 0}">
+
+
+					<h4 style="margin-left: 400px; margin-top: 50px;">Нет операций</h4>
+
+
+
+				</c:if>
 
 				<c:forEach var="transaction" items="${listTransactions}">
 
@@ -92,24 +107,32 @@ body {
 							style="float: left; background-image: none; box-shadow: none;">
 							<p>
 								<strong>Дата и время:</strong>
-								<fmt:formatDate 
-									 value="${transaction.dateCompletion}" pattern="yyyy-MM-dd HH:mm" />
+								<fmt:formatDate value="${transaction.dateCompletion}"
+									pattern="yyyy-MM-dd HH:mm" />
 							</p>
 
 							<p>
-								<strong>Сумма:</strong> ${transaction.sum}
+
+								<strong>Сумма:</strong>
+
+								<c:if test="${transaction.sum<0}">
+									<span style="color: red;">${transaction.sum}</span>
+								</c:if>
+
+								<c:if test="${transaction.sum>0}">
+									<span style="color: green;">${transaction.sum}</span>
+								</c:if>
+
 							</p>
 
 
 
 							<p>
 								<c:if test="${transaction.sum<0}">
-									<strong>Номер карты получателя:
-										${transaction.fromTo}</strong>
+									<strong>Номер карты получателя: </strong>${transaction.fromTo}
 								</c:if>
 								<c:if test="${transaction.sum>0}">
-									<strong>Номер карты отправителя:
-										${transaction.fromTo}</strong>
+									<strong>Номер карты отправителя: </strong>${transaction.fromTo}
 								</c:if>
 							</p>
 						</div>
@@ -125,10 +148,10 @@ body {
 
 			</div>
 
-		
+
 		</div>
-		
-		</div>
+
+	</div>
 </body>
 
 </html>

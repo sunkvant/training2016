@@ -52,11 +52,11 @@ body {
 
 		<div class="container">
 			<ul class="nav nav-pills pull-right">
-				<li><a href="/user">Home</a></li>
-				<li><a href="#">Profile</a></li>
-				<li><a href="j_spring_security_logout">Exit</a></li>
+				<li><a href="/user"><spring:message code="menu.home"/></a></li>
+				<li><a href="#"><spring:message code="menu.profile"/></a></li>
+				<li><a href="j_spring_security_logout"><spring:message code="menu.exit"/></a></li>
 			</ul>
-			<h5>Welcome, ${bankaccount.name}</h5>
+			<h5><spring:message code="welcome"/>, ${bankaccount.name}</h5>
 		</div>
 
 	</div>
@@ -71,13 +71,13 @@ body {
 				<div style="padding: 20px;">
 
 					<p style="float: left; margin-right: 35px;">
-						<strong>Номер счета:</strong> ${bankAccount.numberAccount}
+						<strong><spring:message code="bankaccount.number"/></strong> ${bankAccount.numberAccount}
 					</p>
 					<p style="float: left; margin-right: 35px;">
-						<strong>Остаток средств:</strong> ${bankAccount.sum}
+						<strong><spring:message code="bankaccount.amount"/></strong> ${bankAccount.sum}
 					</p>
 					<p style="float: left; margin-right: 35px;">
-						<strong>Статус блокировки:</strong> ${bankAccount.status}
+						<strong><spring:message code="bankaccount.status"/></strong> ${bankAccount.status}
 					</p>
 
 				</div>
@@ -119,6 +119,8 @@ body {
 
 			</div>
 
+		</div>
+		
 		</div>
 </body>
 

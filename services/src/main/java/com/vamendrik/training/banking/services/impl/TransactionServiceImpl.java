@@ -34,7 +34,7 @@ public class TransactionServiceImpl implements ITransactionService {
 		transaction.setDateCompletion(new Timestamp(new Date().getTime()));
 		transaction.setStatus(true);
 		transaction.setSum(-sum);
-		transaction.setFromTo(destination.getId());
+		transaction.setFromTo(destination.getNumberCard());
 		transaction.setCreditCardId(source.getId());
 		transaction.setDelete(false);
 		
@@ -43,7 +43,7 @@ public class TransactionServiceImpl implements ITransactionService {
 		transaction.setDateCompletion(new Timestamp(new Date().getTime()));
 		transaction.setStatus(true);
 		transaction.setSum(sum);
-		transaction.setFromTo(source.getId());
+		transaction.setFromTo(source.getNumberCard());
 		transaction.setCreditCardId(destination.getId());
 		transaction.setDelete(false);
 		
@@ -98,8 +98,7 @@ public class TransactionServiceImpl implements ITransactionService {
 
 	@Override
 	public List<Transaction> getAllByBankAccountId(Long bankAccountId) {
-		// TODO Auto-generated method stub
-		return null;
+		return transactionDao.getAllByBankAccountId(bankAccountId);
 	}
 
 	@Override

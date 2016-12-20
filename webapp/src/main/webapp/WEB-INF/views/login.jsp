@@ -35,11 +35,14 @@ body {
 </head>
 <body>
 	<div class="container"> 
-
+<span style="float: right;">
+<a href="?lang=ru">ru</a>
+<a href="?lang=en">en</a>
+</span>
 
 		<form class="form-signin" action="j_spring_security_check"
 			method="POST">
-			<h2>Please sign in</h2>
+			<h2><spring:message code="login.head"/></h2>
 			<c:if test="${not empty login.failed}">
 				<div class="alert alert-danger">${login.failed}</div>
 			</c:if>
@@ -52,7 +55,7 @@ body {
 					placeholder="Password" required="required">
 			</div>
 
-			<button type="submit" class="btn btn-lg btn-primary btn-block">Войти</button>
+			<button type="submit" class="btn btn-lg btn-primary btn-block"><spring:message code="login.button"/></button>
 		</form>
 
 	</div>

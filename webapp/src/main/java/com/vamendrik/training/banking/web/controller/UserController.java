@@ -52,7 +52,7 @@ public class UserController {
 	
 	@RequestMapping(value="/user",method=RequestMethod.GET)
 	public ModelAndView user(Authentication auth,Model model) {
-		
+	
 		
 		User user=userService.getByLogin(auth.getName());
 		
@@ -127,9 +127,10 @@ public class UserController {
 		 
 
 		List<CreditCard> creditCards=creditCardService.getAllByNumberBankAccount(numberAccount);
-		
+		BankAccount bankAccount=bankAccountService.getByNumberAccount(numberAccount);
 		model.addAttribute("listCards",creditCards);
-		
+		model.addAttribute("numberAccount",numberAccount);
+		model.addAttribute("sum",bankAccount.getSum());
 		return new ModelAndView("transfer","transfer",model);
 	
 		
@@ -138,13 +139,20 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value="/user/transfer/",method=RequestMethod.POST)
+	@RequestMapping(value="/user/transfer/",method=RequestMethod.POST,produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String transferTo(HttpEntity<String> obj) {
 		 
 		
 		String req=obj.getBody();
 		String[] body=req.split("&");
-		CreditCard dest=creditCardService.getByNumberCard(Long.valueOf(body[1]));
+		CreditCard dest;
+		try {
+			dest=creditCardService.getByNumberCard(Long.valueOf(body[1]));
+		} catch (Exception e) {
+			
+			return "Ошибка ввода карты получателя.";
+			
+		}
 		CreditCard source;
 		
 		if (dest!=null) {
@@ -157,29 +165,50 @@ public class UserController {
 			
 			String sum=body[2];
 			
+			try {
+			
 			if (Double.valueOf(sum)>bankAccount.getSum()) {
 				
 				return "Превышен лимит перевода.";
 				
 			}
-			
+			} catch(Exception e) {
+				
+				return "Не корректная сумма.";
+				
+				
+			}
 			
 			transactionService.transferToBankAccount(source, dest, Double.valueOf(sum));
 			
 			
-		} else return "rrОшибка ввода карты получателя.";	
+		} else return "Ошибка ввода карты получателя.";	
 		
 		return "Перевод успешно выполнен!";
 		
 	}
 	
 	@RequestMapping(value="/user/transactions/card/{numberCard}",method=RequestMethod.GET)
-	public ModelAndView ajax(@PathVariable Long numberCard,Authentication auth,Model model) {
+	public ModelAndView transactCard(@PathVariable Long numberCard,Authentication auth,Model model) {
 		
 		//BankAccount bankAccount=bankAccountService.get(creditCardService.getByNumberCard(numberCard).getBankAccountId());
 		List<Transaction> transactions=transactionService.getAllByCreditCardId(creditCardService.getByNumberCard(numberCard).getId());
 		model.addAttribute("listTransactions", transactions);
+		model.addAttribute("colTransactions",transactions.size());
 		model.addAttribute("numberCard", numberCard);
+		
+		return new ModelAndView("transactions","transactions",model);
+		
+	}
+	
+	@RequestMapping(value="/user/transactions/{numberAccount}",method=RequestMethod.GET)
+	public ModelAndView transactAccount(@PathVariable Long numberAccount,Authentication auth,Model model) {
+		
+		//BankAccount bankAccount=bankAccountService.get(creditCardService.getByNumberCard(numberCard).getBankAccountId());
+		List<Transaction> transactions=transactionService.getAllByBankAccountId(bankAccountService.getByNumberAccount(numberAccount).getId());
+		model.addAttribute("listTransactions", transactions);
+		model.addAttribute("colTransactions",transactions.size());
+		model.addAttribute("numberAccount", numberAccount);
 		
 		return new ModelAndView("transactions","transactions",model);
 		

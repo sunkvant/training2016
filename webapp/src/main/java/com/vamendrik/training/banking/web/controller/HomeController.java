@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,29 +29,21 @@ public class HomeController {
 	@RequestMapping(value="/index",method=RequestMethod.GET)
 	public ModelAndView index(Authentication auth) {
 	
-		logger.info("User with [UserName="+auth.getName()+"] success loginned");
+		logger.debug("User with [UserName="+auth.getName()+"] success loginned");
 		
 		List<SimpleGrantedAuthority> authList = (List<SimpleGrantedAuthority>) auth.getAuthorities();
 		if (authList.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
 			
-			return new ModelAndView("redirect:/admin");
+			return new ModelAndView("redirect:admin");
 			
 		} else {
 		
-			return new ModelAndView("redirect:/user");
+			return new ModelAndView("redirect:user");
 		
 		}
 	}
 	
 	
-	
-	@RequestMapping(value="/admin",method=RequestMethod.GET)
-	public String admin(Authentication auth) {
-		
-		
-		return "admin";
-	
-	}
 	
 	@RequestMapping(value ={"/","/login"}, method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value="failed",required=false) String failed,Model model) {
