@@ -209,7 +209,7 @@ body {
 				search["firstName"] = $("#first_name").val();
 				search["lastName"] = $("#last_name").val();
 				search["middleName"] = $("#middle_name").val();
-				search["numberOfPassport"] = $("#middle_name").val();
+				search["numberOfPassport"] = $("#number_passport").val();
 				search["dateBorn"] = $("#date_born").val();
 				search["cityId"] = $("#listcity").val();
 				
@@ -217,13 +217,13 @@ body {
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",
-					url : "/user/profile/update",
+					url : "/user/profile/",
 					data : JSON.stringify(search),
-					dataType : 'json',
+					dataType : 'text',
 					timeout : 100000,
 					success : function(data) {
 						console.log("SUCCESS: ", data);
-						alert("Данные обновлены");
+						alert(data);
 					},
 					error : function(e) {
 						console.log("ERROR: ", e);

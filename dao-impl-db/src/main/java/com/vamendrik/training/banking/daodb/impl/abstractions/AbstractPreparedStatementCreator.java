@@ -1,6 +1,7 @@
 package com.vamendrik.training.banking.daodb.impl.abstractions;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,7 +94,15 @@ public class AbstractPreparedStatementCreator<E> implements PreparedStatementCre
 				java.lang.reflect.Field field = object.getDeclaredFields()[i];
 
 				field.setAccessible(true);
-				ps.setObject(this.preparedStatementCounter, field.get(this.instance));
+				if (field.getType().getName().equals(java.util.Date.class.getName())) {
+					
+					ps.setDate(this.preparedStatementCounter, new java.sql.Date (((java.util.Date)field.get(this.instance)).getTime()));
+					
+				} else {
+					
+					ps.setObject(this.preparedStatementCounter, field.get(this.instance));
+					
+				}
 				
 				this.preparedStatementCounter++;
 				

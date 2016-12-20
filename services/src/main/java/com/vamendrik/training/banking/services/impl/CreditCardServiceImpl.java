@@ -101,8 +101,7 @@ public class CreditCardServiceImpl implements ICreditCardService {
 
 	@Override
 	public CreditCard getByNumberCard(Long numberCard) {
-		// TODO Auto-generated method stub
-		return null;
+		return creditCardDao.getByNumberCard(numberCard);
 	}
 
 	@Override

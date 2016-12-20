@@ -71,7 +71,7 @@ body {
 				<label class="col-sm-4 control-label">Перевести с карты</label> 
 				
 				<select
-					id="listcountry" style="width: 220px; height: 30px;"
+					id="listcards" style="width: 220px; height: 30px;"
 					class="col-sm-3">
 
 					<c:forEach var="card" items="${listCards}">
@@ -91,8 +91,8 @@ body {
 		<div class="form-group">
 			<label class="col-sm-4 control-label">На карту</label>
 			<div class="col-sm-3">
-				<input type="text" class="form-control" id="first_name"
-					placeholder="Enter last name" />
+				<input type="text" class="form-control" id="destination"
+					placeholder="Enter number destination card" />
 
 			</div>
 
@@ -101,8 +101,8 @@ body {
 		<div class="form-group">
 			<label class="col-sm-4 control-label">Сумма</label>
 			<div class="col-sm-3">
-				<input type="text" class="form-control" id="last_name"
-					placeholder="Enter last name" />
+				<input type="text" class="form-control" id="sum"
+					placeholder="Enter sum" />
 
 			</div>
 
@@ -124,14 +124,14 @@ body {
 
 			$("#send").click(function(event) {
 
-				var search = $("#first_name").val();
+				var search = $("#listcards option:selected").text()+"&"+$("#destination").val()+"&"+$("#sum").val();
 		
 				
 				$.ajax({
 					type : "POST",
-					contentType : "application/json",
+					contentType : "text/plain",
 					url : "/user/transfer/",
-					data : JSON.stringify(search),
+					data : search,
 					dataType : 'text',
 					timeout : 100000,
 					success : function(data) {

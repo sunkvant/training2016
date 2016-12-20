@@ -36,6 +36,7 @@ public class TransactionServiceImpl implements ITransactionService {
 		transaction.setSum(-sum);
 		transaction.setFromTo(destination.getId());
 		transaction.setCreditCardId(source.getId());
+		transaction.setDelete(false);
 		
 		transactionDao.insert(transaction);
 		
@@ -44,6 +45,7 @@ public class TransactionServiceImpl implements ITransactionService {
 		transaction.setSum(sum);
 		transaction.setFromTo(source.getId());
 		transaction.setCreditCardId(destination.getId());
+		transaction.setDelete(false);
 		
 		transactionDao.insert(transaction);
 	}
@@ -91,8 +93,7 @@ public class TransactionServiceImpl implements ITransactionService {
 
 	@Override
 	public List<Transaction> getAllByCreditCardId(Long creditCardId) {
-		// TODO Auto-generated method stub
-		return null;
+		return transactionDao.getAllByCreditCardId(creditCardId);
 	}
 
 	@Override

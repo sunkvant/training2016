@@ -19,11 +19,13 @@ import com.vamendrik.training.banking.datamodel.BankAccount;
 import com.vamendrik.training.banking.datamodel.City;
 import com.vamendrik.training.banking.datamodel.Country;
 import com.vamendrik.training.banking.datamodel.CreditCard;
+import com.vamendrik.training.banking.datamodel.Transaction;
 import com.vamendrik.training.banking.datamodel.User;
 import com.vamendrik.training.banking.services.IBankAccountService;
 import com.vamendrik.training.banking.services.ICityService;
 import com.vamendrik.training.banking.services.ICountryService;
 import com.vamendrik.training.banking.services.ICreditCardService;
+import com.vamendrik.training.banking.services.ITransactionService;
 import com.vamendrik.training.banking.services.IUserService;
 
 @RestController
@@ -44,17 +46,20 @@ public class UserController {
 	@Inject
 	ICountryService countryService;
 	
+	@Inject
+	ITransactionService transactionService;
+	
 	
 	@RequestMapping(value="/user",method=RequestMethod.GET)
 	public ModelAndView user(Authentication auth,Model model) {
 		
 		
-		//User user=userService.getByLogin(auth.getName());
+		User user=userService.getByLogin(auth.getName());
 		
-		//List<BankAccount> bankAccounts=bankAccountService.getAllByUserId(user.getId());
+		List<BankAccount> bankAccounts=bankAccountService.getAllByUserId(user.getId());
 		
-		//model.addAttribute("currentUser",user);
-		//model.addAttribute("listBankAccounts", bankAccounts);
+		model.addAttribute("currentUser",user);
+		model.addAttribute("listBankAccounts", bankAccounts);
 		
 		return new ModelAndView("user","user",model);
 		
@@ -82,15 +87,15 @@ public class UserController {
 	public ModelAndView profile(Authentication auth,Model model) {
 		 
 		
-		//User user=userService.getByLogin(auth.getName());
-		//Long currentCountry=cityService.get(user.getCityId()).getCountryId();
-		//List<City> cities=cityService.getAllByCountryId(currentCountry);
-		//List<Country> countries=countryService.getAll();
+		User user=userService.getByLogin(auth.getName());
+		Long currentCountry=cityService.get(user.getCityId()).getCountryId();
+		List<City> cities=cityService.getAllByCountryId(currentCountry);
+		List<Country> countries=countryService.getAll();
 		
-		//model.addAttribute("currentUser", user);
-		//model.addAttribute("listCities", cities);
-		//model.addAttribute("listCountries", countries);
-		//model.addAttribute("currentCountry", currentCountry);
+		model.addAttribute("currentUser", user);
+		model.addAttribute("listCities", cities);
+		model.addAttribute("listCountries", countries);
+		model.addAttribute("currentCountry", currentCountry);
 		
 		return new ModelAndView("profile","profile",model);
 	
@@ -100,22 +105,19 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value="/user/profile/update",method=RequestMethod.POST)
-	public User profilePut(@RequestBody User user,Authentication auth,Model model) {
+	@RequestMapping(value="/user/profile/",method=RequestMethod.POST)
+	public @ResponseBody String profilePut(@RequestBody User user,Authentication auth,Model model) {
 		 
+		User user1=userService.getByLogin(auth.getName());
 		
+		user.setId(user1.getId());
+		user.setDelete(false);
+		user.setLogin(user1.getLogin());
+		user.setPassword(user1.getPassword());
 		
-		//User user=userService.getByLogin(auth.getName());
-		//Long currentCountry=cityService.get(user.getCityId()).getCountryId();
-		//List<City> cities=cityService.getAllByCountryId(currentCountry);
-		//List<Country> countries=countryService.getAll();
+		userService.save(user);
 		
-		//model.addAttribute("currentUser", user);
-		//model.addAttribute("listCities", cities);
-		//model.addAttribute("listCountries", countries);
-		//model.addAttribute("currentCountry", currentCountry);
-		
-		return user;
+		return "Данные обновлены";
 	
 
 	}
@@ -123,11 +125,10 @@ public class UserController {
 	@RequestMapping(value="/user/transfer/{numberAccount}",method=RequestMethod.GET)
 	public ModelAndView transfer(@PathVariable Long numberAccount,Authentication auth,Model model) {
 		 
+
+		List<CreditCard> creditCards=creditCardService.getAllByNumberBankAccount(numberAccount);
 		
-		//User user=userService.getByLogin(auth.getName());
-		//List<CreditCard> creditCards=creditCardService.getAllByNumberBankAccount(numberAccount);
-		
-		//model.addAttribute("listCards",creditCards);
+		model.addAttribute("listCards",creditCards);
 		
 		return new ModelAndView("transfer","transfer",model);
 	
@@ -138,20 +139,52 @@ public class UserController {
 	
 	
 	@RequestMapping(value="/user/transfer/",method=RequestMethod.POST)
-	public @ResponseBody String transfer4(HttpEntity<String> obj,Authentication auth,Model model) {
+	public @ResponseBody String transferTo(HttpEntity<String> obj) {
 		 
 		
-		//User user=userService.getByLogin(auth.getName());
-		//List<CreditCard> creditCards=creditCardService.getAllByNumberBankAccount(numberAccount);
+		String req=obj.getBody();
+		String[] body=req.split("&");
+		CreditCard dest=creditCardService.getByNumberCard(Long.valueOf(body[1]));
+		CreditCard source;
 		
-		//model.addAttribute("listCards",creditCards);
+		if (dest!=null) {
+			
+			
+			
+			source=creditCardService.getByNumberCard(Long.valueOf(body[0]));
+			
+			BankAccount bankAccount=bankAccountService.get(source.getBankAccountId());
+			
+			String sum=body[2];
+			
+			if (Double.valueOf(sum)>bankAccount.getSum()) {
+				
+				return "Превышен лимит перевода.";
+				
+			}
+			
+			
+			transactionService.transferToBankAccount(source, dest, Double.valueOf(sum));
+			
+			
+		} else return "rrОшибка ввода карты получателя.";	
 		
-		return obj.getBody()+" custom";
-	
+		return "Перевод успешно выполнен!";
 		
-		
-
 	}
+	
+	@RequestMapping(value="/user/transactions/card/{numberCard}",method=RequestMethod.GET)
+	public ModelAndView ajax(@PathVariable Long numberCard,Authentication auth,Model model) {
+		
+		//BankAccount bankAccount=bankAccountService.get(creditCardService.getByNumberCard(numberCard).getBankAccountId());
+		List<Transaction> transactions=transactionService.getAllByCreditCardId(creditCardService.getByNumberCard(numberCard).getId());
+		model.addAttribute("listTransactions", transactions);
+		model.addAttribute("numberCard", numberCard);
+		
+		return new ModelAndView("transactions","transactions",model);
+		
+	}
+	
 	
 	@RequestMapping(value="/ajax/city",method=RequestMethod.POST)
 	public List<City> ajax(@RequestBody Country country,Authentication auth) {

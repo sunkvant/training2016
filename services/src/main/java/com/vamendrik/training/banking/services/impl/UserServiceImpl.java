@@ -20,85 +20,78 @@ import com.vamendrik.training.banking.services.cache.ICache;
 
 @Service
 public class UserServiceImpl implements IUserService {
-	
+
 	@Inject
 	private IUserDao userDao;
-	
+
 	@Inject
 	private IRoleDao roleDao;
-	
-	@Inject ICache cache;
-	
+
+	@Inject
+	ICache cache;
+
 	private String generatePassword() {
-		
-		String s="abcdefghijklmnopqrstuvwxyz0123456789";
-		
-		StringBuilder stringBuilder=new StringBuilder();
-		
-		Random rnd=new Random();
-		
-		for(int i=0; i<10; i++) {
-			
-			char c=s.charAt(rnd.nextInt(s.length()-1));
-			if (rnd.nextInt(10)>5) 
-				c=Character.toUpperCase(c);
+
+		String s = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+		StringBuilder stringBuilder = new StringBuilder();
+
+		Random rnd = new Random();
+
+		for (int i = 0; i < 10; i++) {
+
+			char c = s.charAt(rnd.nextInt(s.length() - 1));
+			if (rnd.nextInt(10) > 5)
+				c = Character.toUpperCase(c);
 			stringBuilder.append(c);
-		
+
 		}
-		
+
 		return stringBuilder.toString();
-		
+
 	}
-	
+
 	@Override
 	public List<User> getAll() {
-		
-		
+
 		List<User> users = userDao.getAll();
-		
-		
-		
-		for(int i=0; i<users.size(); i++) {
-			
-			List<Role> roles=roleDao.getAllByUserId(users.get(i).getId());
+
+		for (int i = 0; i < users.size(); i++) {
+
+			List<Role> roles = roleDao.getAllByUserId(users.get(i).getId());
 			users.get(i).setRoles(roles);
 
-			
 		}
-		
+
 		return users;
-		
-		
+
 	}
-	
+
 	@Override
 	public void delete(User client) {
-		
+
 		userDao.delete(client);
-		
-		
-		
+
 	}
-	
-	
+
 	@Override
 	public User get(Long id) {
-		
+
 		User user = userDao.getById(id);
-		
+
 		user.setRoles(roleDao.getAllByUserId(user.getId()));
-		
+
 		return user;
-		
+
 	}
-	
+
 	@Override
 	@Transactional
-	public Long createUser(String firstName,String lastName,String middleName,
-			String numberOfPassport,Date dateBorn,Long cityId,String login,String password,List<Role> roles) {
-		
-		User user=new User();
-		
+	public Long createUser(String firstName, String lastName, String middleName, String numberOfPassport, Date dateBorn,
+			Long cityId, String login, String password, List<Role> roles) {
+
+		User user = new User();
+
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		user.setMiddleName(middleName);
@@ -108,18 +101,29 @@ public class UserServiceImpl implements IUserService {
 		user.setLogin(login);
 		user.setPassword(password);
 		user.setRoles(roles);
-		
-		Long key=userDao.insert(user);
-		
-		return key;
-		
-	}
 
+		Long key = userDao.insert(user);
+
+		return key;
+
+	}
 
 	@Override
 	public void save(User entity) {
-		// TODO Auto-generated method stub
-		
+
+		if (cache.get(User.class, entity.getId(), "id") != null) {
+
+			cache.remove(User.class, entity.getId(), "id");
+
+		}
+
+		userDao.update(entity);
+		HashMap<String, Object> mapColumns = new HashMap<String, Object>();
+		mapColumns.put("id", entity.getId());
+		mapColumns.put("login", entity.getLogin());
+		mapColumns.put("numberOfPassport", entity.getNumberOfPassport());
+		cache.put(User.class, userDao.getById(entity.getId()), mapColumns);
+
 	}
 
 	@Override
@@ -148,24 +152,25 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User getByLogin(String login) {
-		Object obj=cache.get(User.class, login, "login");
-		if (obj!=null) {
-			
+		Object obj = cache.get(User.class, login, "login");
+		if (obj != null) {
+
 			return (User) obj;
-			
+
 		} else {
-			
-			User user=userDao.getByLogin(login);
-			
-			if (user!=null) {
-				cache.put(User.class, user,"login");
+
+			User user = userDao.getByLogin(login);
+
+			if (user != null) {
+				HashMap<String, Object> mapColumns = new HashMap<String, Object>();
+				mapColumns.put("id", user.getId());
+				mapColumns.put("login", user.getLogin());
+				cache.put(User.class, user, mapColumns);
 			}
-		
+
 			return user;
-		
-		
+
 		}
 	}
-	
 
 }

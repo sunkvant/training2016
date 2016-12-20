@@ -1,10 +1,14 @@
 package com.vamendrik.training.banking.services.cache;
 
-public interface ICache<K,V> {
+import java.util.HashMap;
+import java.util.HashSet;
+
+public interface ICache {
 	
 	public void Cache();
-	void put(Class key, Object data, String column);
-	Object get(Class key, Object data, String column);
+	public Object get(Class key, Object columnData, String column);
+	public void remove(Class key, Object columnData, String column);
+	public void put(Class key, Object data, HashMap<String,Object> columns);
 	
 	
 

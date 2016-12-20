@@ -1,6 +1,10 @@
 package com.vamendrik.training.banking.services.cache;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -13,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class Cache implements ICache {
 
-	private ConcurrentHashMap<Class, ConcurrentHashMap<Object, Object>> globalMap = new ConcurrentHashMap<Class, ConcurrentHashMap<Object, Object>>();
+	private ConcurrentHashMap<Class, ConcurrentHashMap<HashMap<String, Object>, Object>> globalMap = new ConcurrentHashMap<Class, ConcurrentHashMap<HashMap<String, Object>, Object>>();
 	private Long check;
 
 	private ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(new ThreadFactory() {
@@ -36,21 +40,51 @@ public class Cache implements ICache {
 		}, 1, 500000, TimeUnit.MILLISECONDS);
 
 	}
-
+	
 	@Override
-	public void put(Class key, Object data, String column) {
-
+	public void remove(Class key, Object columnData, String column) {
 
 		if (globalMap.get(key) == null) {
 
-			ConcurrentHashMap<Object, Object> map = new ConcurrentHashMap<Object, Object>();
-			map.put(column, data);
+			return;
+
+		} else {
+			ConcurrentHashMap<HashMap<String, Object>, Object> map = globalMap.get(key);
+
+			Set<HashMap<String, Object>> setmap = map.keySet();
+
+			HashMap<String, Object> bufmap;
+
+			while (setmap.iterator().hasNext()) {
+
+				bufmap = setmap.iterator().next();
+
+				Object obj = bufmap.get(column);
+
+				if (obj.equals(columnData)) {
+
+					map.remove(bufmap);
+				}
+
+			}
+
+		}
+
+	}
+
+	@Override
+	public void put(Class key, Object data, HashMap<String, Object> columns) {
+
+		if (globalMap.get(key) == null) {
+
+			ConcurrentHashMap<HashMap<String, Object>, Object> map = new ConcurrentHashMap<HashMap<String, Object>, Object>();
+			map.put(columns, data);
 			globalMap.put(key, map);
 
 		} else {
 
-			ConcurrentHashMap<Object, Object> map=globalMap.get(key);
-			map.put(column, data);
+			ConcurrentHashMap<HashMap<String, Object>, Object> map = globalMap.get(key);
+			map.put(columns, data);
 
 		}
 
@@ -61,20 +95,30 @@ public class Cache implements ICache {
 
 		if (globalMap.get(key) == null) {
 
-			ConcurrentHashMap<Object, Object> map = new ConcurrentHashMap<Object, Object>();
-			globalMap.put(key, map);
+			return null;
 
 		} else {
-			ConcurrentHashMap<Object, Object> map = globalMap.get(key);
+			ConcurrentHashMap<HashMap<String, Object>, Object> map = globalMap.get(key);
 
-					if (map.get(column) != null) {
+			Set<HashMap<String, Object>> setmap = map.keySet();
 
-						return map.get(column);
+			HashMap<String, Object> bufmap;
 
-					}
+			while (setmap.iterator().hasNext()) {
+
+				bufmap = setmap.iterator().next();
+
+				Object obj = bufmap.get(column);
+
+				if (obj.equals(columnData)) {
+
+					return map.get(bufmap);
+				}
+
+			}
 
 		}
-		return  null;
+		return null;
 
 	}
 
